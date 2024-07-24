@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Нажатое состояние -->
+    <item android:state_pressed="true">
+        <shape>
+
+            <corners android:radius="10dp"/> <!-- Радиус закругления углов -->
+            <gradient
+                android:startColor="#53E88B"
+            android:endColor="#15BE77"
+            android:angle="99" />         <!-- Угол градиента -->
+            <corners android:radius="10dp" /> <!-- Радиус закругления углов -->
+        </shape>
+    </item>
+
+    <!-- Обычное состояние -->
+    <item>
+        <shape>
+            <corners android:radius="15dp"/> <!-- Радиус закругления углов -->
+            <gradient
+                android:startColor="#53E88B"
+            android:endColor="#15BE77"
+            android:angle="99"/>
+            <corners android:radius="10dp"/> <!-- Радиус закругления углов -->
+        </shape>
+    </item>
+</selector>

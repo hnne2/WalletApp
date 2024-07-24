@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:padding="16dp"
+    tools:context=".ui.avtarization">
+    >
+
+    <EditText
+        android:id="@+id/emailEditTextImya"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="80dp"
+        android:layout_marginEnd="16dp"
+
+        android:background="@drawable/login_shape"
+        android:drawableStart="@drawable/chelovechekxml"
+        android:drawablePadding="20dp"
+        android:drawableTint="#19C179"
+        android:fontFamily="@font/philosopher"
+        android:hint="логин"
+        android:inputType="textEmailAddress"
+        android:maxLines="1"
+        android:textColor="#C4C4C4" />
+
+    <EditText
+        android:id="@+id/passwordEditText"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_below="@id/emailEditTextImya"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="16dp"
+
+        android:background="@drawable/login_shape"
+        android:drawableStart="@drawable/chelovechekxml"
+        android:drawablePadding="20dp"
+        android:drawableTint="#19C179"
+        android:fontFamily="@font/philosopher"
+        android:hint="пароль"
+        android:inputType="textPassword"
+        android:maxLines="1"
+        android:textColor="#C4C4C4" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/loginButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/passwordEditText"
+        android:layout_marginTop="60dp"
+        android:background="@drawable/button_rounded"
+        android:text="войти"
+        android:textAllCaps="false"
+        android:textColor="#FEFEFF"
+
+        android:textSize="20dp" />
+
+
+    <TextView
+        android:id="@+id/textView5"
+        android:layout_width="match_parent"
+        android:layout_height="46dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="15dp"
+        android:layout_marginEnd="16dp"
+        android:fontFamily="@font/philosopher"
+        android:gravity="center"
+        android:text=" Авторизация"
+        android:textAllCaps="false"
+        android:textColor="#3B3B3B"
+        android:textSize="24dp"
+        android:textStyle="italic" />
+
+    <Button
+        android:id="@+id/registbutton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/passwordEditText"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="7dp"
+        android:layout_marginEnd="25dp"
+        android:background="@android:color/transparent"
+        android:fontFamily="@font/philosopher"
+        android:text="Регистрация"
+        android:textAllCaps="false"
+        android:textColor="#19C179"
+        android:textSize="20dp" />
+
+
+</RelativeLayout>
