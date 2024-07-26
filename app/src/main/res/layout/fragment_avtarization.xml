@@ -4,11 +4,11 @@
     android:layout_height="match_parent"
     xmlns:tools="http://schemas.android.com/tools"
     android:padding="16dp"
-    tools:context=".ui.avtarization">
+    tools:context=".ui.avtarization.avtarization">
     >
 
     <EditText
-        android:id="@+id/emailEditTextImya"
+        android:id="@+id/NIckNamelEditText"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_alignParentEnd="true"
@@ -29,7 +29,7 @@
         android:id="@+id/passwordEditText"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:layout_below="@id/emailEditTextImya"
+        android:layout_below="@id/NIckNamelEditText"
         android:layout_alignParentEnd="true"
         android:layout_marginTop="20dp"
         android:layout_marginEnd="16dp"

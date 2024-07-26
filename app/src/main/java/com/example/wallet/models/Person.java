@@ -7,11 +7,28 @@ import android.os.Parcelable;
 public class Person implements Parcelable {
 
     private int id;
-
     private String username;
-
     public String userfio;
+    private String country;
+    private String city;
+    private String avatarlink;
+    private String password;
+    private int place;
+    private String frendslistid;
+    private int capital;
+    private String balansinsber;
+    private String balansintinkoff;
+    private String balansinvtb;
+    private String balansinalfa;
+    private String balansinotkritie;
+    private int placeincity;
+    private int placeincountry;
 
+
+
+    // Конструктор по умолчанию нужен для Spring
+    public Person() {
+    }
     public String getUserfio() {
         return userfio;
     }
@@ -19,10 +36,55 @@ public class Person implements Parcelable {
     public void setUserfio(String userfio) {
         this.userfio = userfio;
     }
+    public int getPlace() {
+        return place;
+    }
+
+    public void setPlace(int place) {
+        this.place = place;
+    }
+
+    public int getPlaceincity() {
+        return placeincity;
+    }
+
+    public void setPlaceincity(int placeincity) {
+        this.placeincity = placeincity;
+    }
+
+    public int getPlaceincountry() {
+        return placeincountry;
+    }
+
+    public void setPlaceincountry(int placeincountry) {
+        this.placeincountry = placeincountry;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
 
 
-    private String avatarlink;
 
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
     public String getAvatarlink() {
         return avatarlink;
     }
@@ -105,87 +167,11 @@ public class Person implements Parcelable {
     }
 
 
-    private String frendslistid;
 
-    private int capital;
-
-    private String balansinsber;
-
-    private String balansintinkoff;
-    private String balansinvtb;
-    private String balansinalfa;
-    private String balansinotkritie;
-    private String country;
-
-    private String city;
-
-    private String password;
-
-    // Конструктор по умолчанию нужен для Spring
-    public Person() {
-    }
-
-    private int place;
-    private int placeincity;
-    private int placeincountry;
-
-
-    public int getPlace() {
-        return place;
-    }
-
-    public void setPlace(int place) {
-        this.place = place;
-    }
-
-    public int getPlaceincity() {
-        return placeincity;
-    }
-
-    public void setPlaceincity(int placeincity) {
-        this.placeincity = placeincity;
-    }
-
-    public int getPlaceincountry() {
-        return placeincountry;
-    }
-
-    public void setPlaceincountry(int placeincountry) {
-        this.placeincountry = placeincountry;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
+    public Person(String username, String userfio, String country, String city, String password) {
         this.username = username;
-    }
-
-
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-
-    public Person(String username, String avatarlink, String country, String city, String password) {
-        this.username = username;
-        this.avatarlink = avatarlink;
+        this.userfio = userfio;
         this.country = country;
-
         this.city = city;
         this.password = password;
     }

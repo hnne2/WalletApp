@@ -41,7 +41,9 @@ public class SplashActivityViewModel extends ViewModel {
             public void onResponse(Call<Person> call, Response<Person> response) {
                 if (response.body()!=null){
                     getUserInfoSucsess().setValue(response.body());
-                }else System.out.println("erorUserBylogin");
+                    Log.d("TAG", "onResponse:"+response.body());
+
+                }
             }
             @Override
             public void onFailure(Call<Person> call, Throwable t) {

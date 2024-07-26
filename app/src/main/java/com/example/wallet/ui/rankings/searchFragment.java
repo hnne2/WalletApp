@@ -70,7 +70,7 @@ public class searchFragment extends Fragment {
                 personDialogFragment.setUsername(frend.getUsername());
                 FragmentManager fragmentManager = getChildFragmentManager();
                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                fragmentTransaction.replace(R.id.fragmentRangingsConstraintLayout,personDialogFragment);
+                fragmentTransaction.add(R.id.searchFragmentConstrauntLayout,personDialogFragment);
                 fragmentTransaction.commit();
             }
         };

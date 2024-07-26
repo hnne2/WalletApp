@@ -26,8 +26,6 @@ public interface MyApiService {
     Call<ResponseBody> userById(@Path("id") String id);
     @GET("findByUsername/{username}")
     Call<Person> userByLogin(@Path("username") String login);
-
-
     @POST("process_login")
     Call<ResponseBody> login(@Body RequestBody loginBody);
     @GET("findByUsername/{username}")
@@ -39,6 +37,8 @@ public interface MyApiService {
     Call<ResponseBody> updatePerson(@Body Person person);
     @GET("findPerson/{chars}")
     Call<List<Person>> searchPersons(@Path("chars") String chars);
+    @POST("registration")
+    Call<ResponseBody> regestration(@Body Person person);
 
 
 }

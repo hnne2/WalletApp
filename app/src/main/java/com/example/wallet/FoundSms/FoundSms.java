@@ -7,16 +7,13 @@ import android.provider.Telephony;
 import android.util.Log;
 
 public class FoundSms {
-    private static final String ADDRESS_TO_QUERY_Tinkoff = "Tinkoff";
+    private static final String ADDRESS_TO_QUERY_Tinkoff = "T-Bank";
     private static final String ADDRESS_TO_QUERY_SberBank = "900";
 
     public String getSMSMessagesFromAddressTinkoff(ContentResolver contentResolver) {
         String balans="notFound";
-
         // Получаем URI для всех SMS-сообщений
         Uri uri = Uri.parse("content://sms/");
-
-
         // Выполняем запрос к базе данных SMS, фильтруя сообщения по адресу
         Cursor cursor = contentResolver.query(uri, null, Telephony.Sms.ADDRESS + "=?", new String[]{ADDRESS_TO_QUERY_Tinkoff}, null);
 
