@@ -15,16 +15,16 @@ import java.util.List;
 
 public class FrendsRecyclerViewAdapter extends RecyclerView.Adapter<FrendsRecyclerViewAdapter.ViewHolder>{
 
-    public interface OnStateClickListener{
-        void onStateClick(FrendsItem frend, int position);
+    public interface OnFrendsClickListener {
+        void onFrendsClick(FrendsItem frend, int position);
     }
 
-    private final FrendsRecyclerViewAdapter.OnStateClickListener onClickListener;
+    private final OnFrendsClickListener onClickListener;
 
     private final LayoutInflater inflater;
     private final List<FrendsItem> frends;
 
-    public FrendsRecyclerViewAdapter(Context context, List<FrendsItem> frends, FrendsRecyclerViewAdapter.OnStateClickListener onClickListener) {
+    public FrendsRecyclerViewAdapter(Context context, List<FrendsItem> frends, OnFrendsClickListener onClickListener) {
         this.onClickListener = onClickListener;
         this.frends = frends;
         this.inflater = LayoutInflater.from(context);
@@ -43,14 +43,7 @@ public class FrendsRecyclerViewAdapter extends RecyclerView.Adapter<FrendsRecycl
         holder.nameView.setText(frend.getName());
         holder.capitalView.setText(frend.getCapital());
         holder.PlaceView.setText(frend.getPlace());
-
-        holder.itemView.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View v)
-            {
-                onClickListener.onStateClick(frend, position);
-            }
-        });
+        holder.itemView.setOnClickListener(v -> onClickListener.onFrendsClick(frend, position));
     }
 
     @Override

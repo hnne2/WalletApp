@@ -5,7 +5,6 @@ import android.os.Bundle;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -13,17 +12,14 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 
 import com.example.wallet.PersonDialog.PersonDialogFragment;
 import com.example.wallet.R;
-import com.example.wallet.models.Person;
 import com.example.wallet.ui.home.FrendsItem;
 import com.example.wallet.ui.home.FrendsRecyclerViewAdapter;
 
@@ -63,9 +59,9 @@ public class searchFragment extends Fragment {
                 viewModel.SearchPersons(searhEditText.getText().toString());
             }
         });
-        FrendsRecyclerViewAdapter.OnStateClickListener rankingsClickListener = new FrendsRecyclerViewAdapter.OnStateClickListener() {
+        FrendsRecyclerViewAdapter.OnFrendsClickListener rankingsClickListener = new FrendsRecyclerViewAdapter.OnFrendsClickListener() {
             @Override
-            public void onStateClick(FrendsItem frend, int position) {
+            public void onFrendsClick(FrendsItem frend, int position) {
                 PersonDialogFragment personDialogFragment =  new PersonDialogFragment();
                 personDialogFragment.setUsername(frend.getUsername());
                 FragmentManager fragmentManager = getChildFragmentManager();

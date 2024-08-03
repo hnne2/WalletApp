@@ -1,10 +1,13 @@
 package com.example.wallet.ui.splashActivity;
 
+import android.content.ContentResolver;
+import android.provider.ContactsContract;
 import android.util.Log;
 
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
+import com.example.wallet.FoundSms.FoundSms;
 import com.example.wallet.MyApiService;
 import com.example.wallet.sharedPref.SheredPrefsRepository;
 import com.example.wallet.models.Person;
@@ -29,11 +32,18 @@ public class SplashActivityViewModel extends ViewModel {
     @Inject
     SheredPrefsRepository mSheredPrefsRepository;
     MutableLiveData<Person> userInfoSucsess;
+    MutableLiveData<Boolean> updateSuccses;
     public MutableLiveData<Person> getUserInfoSucsess() {
         if(userInfoSucsess==null){
             userInfoSucsess = new MutableLiveData<>();
         }
         return userInfoSucsess;
+    }
+    public MutableLiveData<Boolean> getUpdateSuccses() {
+        if(updateSuccses==null){
+            updateSuccses = new MutableLiveData<>();
+        }
+        return updateSuccses;
     }
     public void getUserInfo(){
         apiService.userByLogin(mSheredPrefsRepository.getLogPasEncode("login")).enqueue(new Callback<Person>() {
@@ -42,7 +52,6 @@ public class SplashActivityViewModel extends ViewModel {
                 if (response.body()!=null){
                     getUserInfoSucsess().setValue(response.body());
                     Log.d("TAG", "onResponse:"+response.body());
-
                 }
             }
             @Override
@@ -57,12 +66,16 @@ public class SplashActivityViewModel extends ViewModel {
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                 if (response.body()!=null){
                     Log.e("my","updatePersonSucsses");
-                }else Log.e("my","erorUpdate");
+                    getUpdateSuccses().setValue(true);
+                }else{ Log.e("my","erorUpdate");
+                    getUpdateSuccses().setValue(false);}
             }
             @Override
             public void onFailure(Call<ResponseBody> call, Throwable t) {
+                getUpdateSuccses().setValue(false);
             }
         });
     }
+
 
 }

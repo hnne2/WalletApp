@@ -2,6 +2,7 @@ package com.example.wallet;
 
 import com.example.wallet.models.Person;
 import com.example.wallet.ui.home.LoginBody;
+import com.example.wallet.ui.items.ItemsItem;
 
 import java.util.List;
 
@@ -40,5 +41,7 @@ public interface MyApiService {
     @POST("registration")
     Call<ResponseBody> regestration(@Body Person person);
 
+    @GET("posts")
+    Call<List<ItemsItem>> getItems();
 
 }

@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -15,6 +16,7 @@ import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.example.wallet.MyApiService;
 import com.example.wallet.R;
@@ -34,14 +36,18 @@ public class PersonDialogFragment extends Fragment {
     public PersonDialogFragment(){}
    private String username;
     PersonDialogBinding binding;
+
    @Inject
    @Named("withToken")
    MyApiService apiService;
+   ProgressBar progressBar;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         binding =PersonDialogBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
+        progressBar =root.findViewById(R.id.progressBarPersonDialog);
+
         appPerson = getActivity().getIntent().getParcelableExtra("person");
         root.setBackgroundResource(R.drawable.zakrugl);
         ConstraintLayout constraintLayout = root.findViewById(R.id.personDialogConstraintLayout);
@@ -51,7 +57,6 @@ public class PersonDialogFragment extends Fragment {
             public void onResponse(Call<Person> call, Response<Person> response) {
                 Person DialogPerson = response.body();
                 if (DialogPerson!=null){
-
                     if (DialogPerson.getFrendslistid()!=null){
                     binding.friendCaount.setText(String.valueOf(response.body().getFrendslistid().split(",").length));
                         if (ifMyFriend(appPerson.getFrendslistid(), DialogPerson.getId())){
@@ -62,29 +67,40 @@ public class PersonDialogFragment extends Fragment {
                     binding.FiotextView.setText(DialogPerson.getUserfio());
                     binding.CityTextView.setText(DialogPerson.getCity());
                     binding.freindButton.setText(String.valueOf(DialogPerson.getCapital()));
+                    progressBar.setVisibility(View.INVISIBLE);
+
                     //диалог со списком
 
                     binding.friendCaount.setOnClickListener(v -> {
+                        if (!binding.friendCaount.getText().toString().equals("0")){
                         DialogWithFrend dialogWithFrend= new DialogWithFrend(DialogPerson.getFrendslistid(),DialogPerson.getUserfio());
                         FragmentManager fragmentManager = getChildFragmentManager();
                         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                        fragmentTransaction.replace(R.id.PersonDialogFragmentConstraiLayout, dialogWithFrend);
+                        fragmentTransaction.add(R.id.PersonDialogFragmentConstraiLayout, dialogWithFrend);
+                        fragmentTransaction.addToBackStack(null);
+                        fragmentTransaction.addToBackStack(null);
                         fragmentTransaction.commit();
+                        }
 
                     });
                     Log.e("my", "dialogUserByLOginSuccses");
                     binding.AddTofriend.setOnClickListener(v -> {
+                        progressBar.setVisibility(View.VISIBLE);
                         appPerson.setFrendslistid(appPerson.getFrendslistid()+","+DialogPerson.getId());
                         apiService.updatePerson(appPerson).enqueue(new Callback<ResponseBody>() {
                             @Override
                             public void onResponse(Call<ResponseBody> call1, Response<ResponseBody> response1) {
                                 if (response1.body()!=null){
-                                Toast.makeText(getContext(),DialogPerson.getUserfio()+" добавлен в друзья",Toast.LENGTH_SHORT).show();}else  Toast.makeText(getContext(),"Ошибка",Toast.LENGTH_SHORT).show();
+                                    progressBar.setVisibility(View.INVISIBLE);
+                                Toast.makeText(getContext(),DialogPerson.getUserfio()+" добавлен в друзья",Toast.LENGTH_SHORT).show();}
+                                    else  {Toast.makeText(getContext(),"Ошибка",Toast.LENGTH_SHORT).show();
+                                    progressBar.setVisibility(View.INVISIBLE);
+                                    }
                             }
 
                             @Override
                             public void onFailure(Call<ResponseBody> call1, Throwable t) {
-
+                                progressBar.setVisibility(View.INVISIBLE);
                             }
                         });
                     });

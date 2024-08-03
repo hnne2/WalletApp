@@ -10,6 +10,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
+import androidx.core.app.Person;
 import androidx.core.content.ContextCompat;
 import androidx.lifecycle.ViewModelProvider;
 
@@ -48,12 +49,11 @@ public class SplashActivity extends AppCompatActivity {
 
         splashActivityViewModel.getUserInfoSucsess().observe(this, person -> {
             Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-            person.setBalansinsber(foundSms.getSMSMessagesFromAddressTinkoff(getContentResolver()));
-            person.setBalansintinkoff(foundSms.getBalansSber(getContentResolver()));
+            foundSms.updateCapital(person,getContentResolver());
             intent.putExtra("person",person);
             Log.e("my","Положил балансы");
-            startActivity(intent);
             splashActivityViewModel.updatePerson(person);
+            startActivity(intent);
             finish();
         });
 
@@ -79,4 +79,5 @@ public class SplashActivity extends AppCompatActivity {
             }
         }
     }
+
 }

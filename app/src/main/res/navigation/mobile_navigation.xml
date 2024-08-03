@@ -22,4 +22,9 @@
         android:name="com.example.wallet.ui.lk.lkFragment"
         android:label="@string/title_notifications"
         tools:layout="@layout/fragment_lk" />
+    <fragment
+        android:id="@+id/itemsFragment"
+        android:name="com.example.wallet.ui.items.itemsFragment"
+        android:label="fragment_items"
+        tools:layout="@layout/fragment_items" />
 </navigation>

@@ -6,6 +6,8 @@ import android.net.Uri;
 import android.provider.Telephony;
 import android.util.Log;
 
+import com.example.wallet.models.Person;
+
 public class FoundSms {
     private static final String ADDRESS_TO_QUERY_Tinkoff = "T-Bank";
     private static final String ADDRESS_TO_QUERY_SberBank = "900";
@@ -58,6 +60,29 @@ public String getBalansSber(ContentResolver contentResolver){
     }
     return balans;
 }
+    public Person updateCapital(Person person, ContentResolver contentResolver){
+
+        String tinkoff = getSMSMessagesFromAddressTinkoff(contentResolver);
+        String sber = getBalansSber(contentResolver);
+        if (!tinkoff.equals("notFound")){
+            tinkoff = tinkoff.split(",")[0];
+        }
+        if (!sber.equals("notFound")){
+            sber = sber.split(",")[0];
+        }
+        if (!sber.equals("notFound") && !tinkoff.equals("notFound")){
+            person.setCapital(Integer.parseInt(sber)+Integer.parseInt(tinkoff));
+        }
+        if (!sber.equals("notFound") && tinkoff.equals("notFound")){
+            person.setCapital(Integer.parseInt(sber));
+        }
+        if (sber.equals("notFound") && !tinkoff.equals("notFound")){
+            person.setCapital(Integer.parseInt(tinkoff));
+        }
+        person.setBalansinsber(sber);
+        person.setBalansintinkoff(tinkoff);
+        return person;
+    }
 
 
 }

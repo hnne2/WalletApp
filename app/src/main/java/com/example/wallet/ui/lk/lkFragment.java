@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,14 +15,22 @@ import androidx.annotation.NonNull;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import com.example.wallet.FoundSms.FoundSms;
 import com.example.wallet.R;
 import com.example.wallet.sharedPref.SheredPrefsRepository;
 import com.example.wallet.databinding.FragmentLkBinding;
 import com.example.wallet.models.Person;
 import com.example.wallet.ui.avtarization.avtarization;
+import com.example.wallet.ui.splashActivity.SplashActivityViewModel;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,26 +43,44 @@ import dagger.hilt.android.AndroidEntryPoint;
 public class lkFragment extends Fragment {
     @Inject
     SheredPrefsRepository msheredPrefsRepository;
-
     private static final int REQUEST_CALL_PERMISSION = 1;
-
     private FragmentLkBinding binding;
+    Person person;
+
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-
+        SplashActivityViewModel splashActivityViewModel = new ViewModelProvider(this).get(SplashActivityViewModel.class);
         binding = FragmentLkBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
-        Person person = getActivity().getIntent().getParcelableExtra("person");
-        LkViewModel lkViewModel = new ViewModelProvider(getActivity()).get(LkViewModel.class);
+        FoundSms foundSms = new FoundSms();
+        person = getActivity().getIntent().getParcelableExtra("person");
+        BottomNavigationView navView = getActivity().findViewById(R.id.nav_view);
+
+        binding.swipeRefreshLayoutLKkFragment.setOnRefreshListener(() ->{
+                    Log.d("TAG", "onCreateView: "+person.toString());
+                person =foundSms.updateCapital(person,getActivity().getContentResolver());
+                binding.FiotextView.setText(person.getUserfio());
+                if (person.getFrendslistid()!=null){
+                    binding.freindButton.setText(String.valueOf(person.getFrendslistid().split(",").length));
+                }
+                List<BankItemReciclerView> banks = new ArrayList<>();
+                banks.add(new BankItemReciclerView("Sberbank",person.getBalansinsber()+"р", R.drawable.spericon));
+                banks.add(new BankItemReciclerView("Tincoff",person.getBalansintinkoff()+"р", R.drawable.tinkofficon));
+                splashActivityViewModel.updatePerson(person);
+        }
+        );
+        splashActivityViewModel.getUpdateSuccses().observe(getViewLifecycleOwner(), aBoolean -> {
+            binding.swipeRefreshLayoutLKkFragment.setRefreshing(false);
+        });
         binding.exitImageButton.setOnClickListener(v -> {
             msheredPrefsRepository.pootLogPas("logPassEncode","empty");
             startActivity(new Intent(getContext(), avtarization.class));
+            getActivity().finish();
         });
        binding.FiotextView.setText(person.getUserfio());
        if (person.getFrendslistid()!=null){
        binding.freindButton.setText(String.valueOf(person.getFrendslistid().split(",").length));}
-        System.out.println(person.getPassword());
         List<BankItemReciclerView> banks = new ArrayList<>();
         banks.add(new BankItemReciclerView("Sberbank",person.getBalansintinkoff()+"р", R.drawable.spericon));
         banks.add(new BankItemReciclerView("Tincoff",person.getBalansinsber()+"р", R.drawable.tinkofficon));
@@ -69,10 +96,11 @@ public class lkFragment extends Fragment {
         binding.BalansRecyclerView.setAdapter(new WallatsRecyclerViewAdapter(getContext(),banks,WalletClickListener));
         binding.BalansRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         binding.freindButton.setOnClickListener(v -> {
-            //клик
+            navView.setSelectedItemId(R.id.navigation_home);
             });
         binding.buttonPlaceInFriend.setOnClickListener(v -> {
-            // клик
+            navView.setSelectedItemId(R.id.navigation_home);
+
         });
 
         return root;

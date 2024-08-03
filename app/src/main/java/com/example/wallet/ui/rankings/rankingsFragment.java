@@ -13,6 +13,7 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 
 import com.example.wallet.PersonDialog.PersonDialogFragment;
@@ -40,16 +41,19 @@ public class rankingsFragment extends Fragment {
     private FragmentRankingsBinding binding;
     FragmentTransaction fragmentTransaction;
     FragmentManager fragmentManager;
+    SwipeRefreshLayout swipeRefreshLayout;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         RankingsViewModel rankingsViewModel =
                 new ViewModelProvider(this).get(RankingsViewModel.class);
         fragmentManager = getActivity().getSupportFragmentManager();
-
         Person person= getActivity().getIntent().getParcelableExtra("person");
         binding = FragmentRankingsBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
+        swipeRefreshLayout = root.findViewById(R.id.swipeRefreshLayoutRankingsFragment);
+        swipeRefreshLayout.setRefreshing(true);
+        swipeRefreshLayout.setOnRefreshListener(()-> rankingsViewModel.getRangingsCity(person.getCity()));
         List<RankingRegion> rankingRegionslist = new ArrayList<>();
         rankingRegionslist.add(new RankingRegion("Город", R.drawable.ic_home_black_24dp));
         rankingRegionslist.add(new RankingRegion("Страна", R.drawable.ic_home_black_24dp));
@@ -65,9 +69,6 @@ public class rankingsFragment extends Fragment {
                binding.textView5.setVisibility(View.INVISIBLE);
                binding.searchImageButton.setVisibility(View.INVISIBLE);
                 fragmentTransaction.commit();
-
-
-
             }
         });
         binding.spinnerRegion.setAdapter(new RegionAdapter(getContext(),rankingRegionslist));
@@ -75,8 +76,6 @@ public class rankingsFragment extends Fragment {
         {
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id)
             {
-
-                System.out.println(rankingRegionslist.get(position).region);
                 if(position==1)
                 {
                     rankingsViewModel.getRangingsCountry(person.getCountry());
@@ -85,37 +84,26 @@ public class rankingsFragment extends Fragment {
                 {
                     rankingsViewModel.getRangingsCity(person.getCity());
                 }
-
-            } // to close the onItemSelected
-            public void onNothingSelected(AdapterView<?> parent)
-            {
-
             }
+            public void onNothingSelected(AdapterView<?> parent) {}
         });
         List<FrendsItem> frendsItems = new ArrayList<>();
-
-        FrendsRecyclerViewAdapter.OnStateClickListener rankingsClickListener = new FrendsRecyclerViewAdapter.OnStateClickListener() {
-            @Override
-            public void onStateClick(FrendsItem frend, int position) {
-                PersonDialogFragment personDialogFragment =  new PersonDialogFragment();
-                personDialogFragment.setUsername(frend.getUsername());
-                fragmentTransaction = fragmentManager.beginTransaction();
-                fragmentTransaction.add(R.id.fragmentRangingsConstraintLayout,personDialogFragment);
-                fragmentTransaction.commit();
-            }
+        FrendsRecyclerViewAdapter.OnFrendsClickListener rankingsClickListener = (frend, position) -> {
+            PersonDialogFragment personDialogFragment =  new PersonDialogFragment();
+            personDialogFragment.setUsername(frend.getUsername());
+            fragmentTransaction = fragmentManager.beginTransaction();
+            fragmentTransaction.add(R.id.fragmentRangingsConstraintLayout,personDialogFragment);
+            fragmentTransaction.commit();
         };
+       rankingsViewModel.getMytableRangingsCityList().observe(getViewLifecycleOwner(), people -> {
+           frendsItems.clear();
+           for (int i = 0; i < people.size(); i++) {
+               frendsItems.add(new FrendsItem(R.drawable.avatar,people.get(i).userfio,people.get(i).getUsername(),String.valueOf(i+1),String.valueOf(people.get(i).getCapital())));
 
-       rankingsViewModel.getMytableRangingsCityList().observe(getViewLifecycleOwner(), new Observer<List<Person>>() {
-           @Override
-           public void onChanged(List<Person> people) {
-               frendsItems.clear();
-               for (int i = 0; i < people.size(); i++) {
-                   frendsItems.add(new FrendsItem(R.drawable.avatar,people.get(i).userfio,people.get(i).getUsername(),String.valueOf(i+1),String.valueOf(people.get(i).getCapital())));
-
-               }
-               binding.RangingsRecyclerView.setAdapter(new FrendsRecyclerViewAdapter(getContext(),frendsItems,rankingsClickListener));
-               binding.RangingsRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
            }
+           binding.RangingsRecyclerView.setAdapter(new FrendsRecyclerViewAdapter(getContext(),frendsItems,rankingsClickListener));
+           binding.RangingsRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+           swipeRefreshLayout.setRefreshing(false);
        });
        rankingsViewModel.getMytableRangingsCountryList().observe(getViewLifecycleOwner(), new Observer<List<Person>>() {
            @Override

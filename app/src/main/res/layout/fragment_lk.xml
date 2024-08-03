@@ -1,155 +1,176 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#14161B"
     tools:context=".ui.lk.lkFragment">
 
-
-    <ScrollView
-        android:id="@+id/scrollView2"
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/swipeRefreshLayoutLKkFragment"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        tools:ignore="MissingConstraints">
+        android:layout_height="match_parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0"
+        tools:layout_editor_absoluteX="0dp">
 
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintTop_toTopOf="@+id/scrollView2">
-
-        <HorizontalScrollView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            app:layout_constraintTop_toBottomOf="@+id/BalansRecyclerView"
-            android:paddingTop="20dp"
-            android:paddingBottom="70dp"
-            android:scrollbars="none"
-            >
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:orientation="horizontal"
-
-                >
-
-                <ImageButton
-                    android:id="@+id/imageButton6"
-                    android:layout_width="150dp"
-                    android:layout_height="150dp"
-                    android:padding="40dp"
-                    android:src="@android:drawable/btn_star"
-                    />
-
-                <ImageButton
-                    android:id="@+id/imageButton7"
-                    android:layout_width="150dp"
-                    android:layout_height="150dp"
-                    android:layout_weight="1"
-                    android:padding="40dp"
-                    android:src="@android:drawable/btn_star" />
-
-                <ImageButton
-                    android:id="@+id/imageButton8"
-                    android:layout_width="150dp"
-                    android:layout_height="150dp"
-                    android:padding="40dp"
-                    android:src="@android:drawable/btn_star" />
-            </LinearLayout>
-        </HorizontalScrollView>
-
-        <ImageView
-            android:id="@+id/AvatarImageView"
-            android:layout_width="173dp"
-            android:layout_height="132dp"
-            android:layout_marginTop="20dp"
-
-            android:background="@drawable/avatar"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:id="@+id/FiotextView"
-            android:layout_width="345dp"
-            android:layout_height="42dp"
-            android:layout_marginTop="12dp"
-            android:gravity="center|center_vertical"
-            android:text="Иванов Иван Иванович "
-            android:textSize="20sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/AvatarImageView" />
-
-        <TextView
-            android:id="@+id/textView2"
-            android:layout_width="126dp"
-            android:layout_height="40dp"
-            android:layout_marginStart="64dp"
-            android:layout_marginTop="8dp"
-            android:gravity="center|start"
-            android:text="Друзья:"
-            android:textSize="20dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/PlaceInFriendTextView" />
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/BalansRecyclerView"
+        <androidx.core.widget.NestedScrollView
+            android:id="@+id/scrollView2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView2" />
-
-        <Button
-            android:id="@+id/freindButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
-            android:layout_marginEnd="20dp"
-            android:text="45"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/buttonPlaceInFriend" />
-
-        <TextView
-            android:id="@+id/PlaceInFriendTextView"
-            android:layout_width="270dp"
-            android:layout_height="37dp"
-            android:layout_marginTop="8dp"
-            android:gravity="center|start"
-            android:text="Место среди друзей:"
-            android:textSize="20dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.234"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/FiotextView" />
+            tools:ignore="MissingConstraints">
 
-        <Button
-            android:id="@+id/buttonPlaceInFriend"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="16dp"
-            android:text="14"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/FiotextView" />
 
-        <ImageButton
-            android:id="@+id/exitImageButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="20dp"
-            android:src="@android:drawable/ic_media_rew"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintTop_toTopOf="@+id/scrollView2">
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
-    </ScrollView>
+                <HorizontalScrollView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:paddingTop="20dp"
+                    android:paddingBottom="70dp"
+                    android:scrollbars="none"
+                    app:layout_constraintTop_toBottomOf="@+id/BalansRecyclerView">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal"
+
+                        >
+
+                        <ImageButton
+                            android:id="@+id/imageButton6"
+                            android:layout_width="150dp"
+                            android:layout_height="150dp"
+                            android:padding="40dp"
+                            android:src="@android:drawable/btn_star" />
+
+                        <ImageButton
+                            android:id="@+id/imageButton7"
+                            android:layout_width="150dp"
+                            android:layout_height="150dp"
+                            android:layout_weight="1"
+                            android:padding="40dp"
+                            android:src="@android:drawable/btn_star" />
+
+                        <ImageButton
+                            android:id="@+id/imageButton8"
+                            android:layout_width="150dp"
+                            android:layout_height="150dp"
+                            android:padding="40dp"
+                            android:src="@android:drawable/btn_star" />
+                    </LinearLayout>
+                </HorizontalScrollView>
+
+                <ImageView
+                    android:id="@+id/AvatarImageView"
+                    android:layout_width="173dp"
+                    android:layout_height="132dp"
+                    android:layout_marginTop="20dp"
+
+                    android:background="@drawable/avatar"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/FiotextView"
+                    android:layout_width="345dp"
+                    android:layout_height="42dp"
+                    android:layout_marginTop="12dp"
+                    android:fontFamily="@font/poppins_semibold"
+                    android:gravity="center|center_vertical"
+                    android:text="Иванов Иван Иванович "
+                    android:textColor="#FFFFFF"
+                    android:textSize="24sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/AvatarImageView" />
+
+                <TextView
+                    android:id="@+id/textView2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="13dp"
+                    android:fontFamily="@font/poppins_semibold"
+                    android:gravity="center|start"
+                    android:text="Друзья:"
+                    android:textColor="#FFFFFF"
+                    android:textSize="20dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.1"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/PlaceInFriendTextView" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/BalansRecyclerView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textView2" />
+
+                <Button
+                    android:id="@+id/freindButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="20dp"
+                    android:fontFamily="@font/poppins_semibold"
+                    android:text="45"
+
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/buttonPlaceInFriend" />
+
+                <TextView
+                    android:id="@+id/PlaceInFriendTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:fontFamily="@font/poppins_semibold"
+                    android:gravity="center|start"
+                    android:text="Место среди друзей:"
+                    android:textColor="#FFFFFF"
+                    android:textSize="20dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.2"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/FiotextView" />
+
+                <Button
+                    android:id="@+id/buttonPlaceInFriend"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginEnd="20dp"
+                    android:fontFamily="@font/poppins_semibold"
+                    android:text="14"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/FiotextView" />
+
+                <ImageButton
+
+                    android:id="@+id/exitImageButton"
+                    android:layout_width="76dp"
+                    android:layout_height="62dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginEnd="5dp"
+                    android:backgroundTint="#14161B"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/exit"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.core.widget.NestedScrollView>
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -7,12 +7,25 @@
     android:layout_height="match_parent">
 
 
+    <ProgressBar
+        android:id="@+id/progressBarFriends_list_dialog"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <TextView
         android:id="@+id/NamePersonFrendsListTextView"
-        android:layout_width="107dp"
-        android:layout_height="45dp"
+        android:layout_width="332dp"
+        android:layout_height="83dp"
         android:layout_marginTop="16dp"
+        android:fontFamily="@font/poppins_semibold"
+        android:gravity="center_horizontal"
         android:text="Друзья:"
+        android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />

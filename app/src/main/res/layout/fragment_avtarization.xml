@@ -19,7 +19,7 @@
         android:drawableStart="@drawable/chelovechekxml"
         android:drawablePadding="20dp"
         android:drawableTint="#19C179"
-        android:fontFamily="@font/philosopher"
+        android:fontFamily="@font/poppins_semibold"
         android:hint="логин"
         android:inputType="textEmailAddress"
         android:maxLines="1"
@@ -38,7 +38,7 @@
         android:drawableStart="@drawable/chelovechekxml"
         android:drawablePadding="20dp"
         android:drawableTint="#19C179"
-        android:fontFamily="@font/philosopher"
+        android:fontFamily="@font/poppins_semibold"
         android:hint="пароль"
         android:inputType="textPassword"
         android:maxLines="1"
@@ -51,10 +51,11 @@
         android:layout_below="@+id/passwordEditText"
         android:layout_marginTop="60dp"
         android:background="@drawable/button_rounded"
+        android:fontFamily="@font/poppins_semibold"
         android:text="войти"
         android:textAllCaps="false"
-        android:textColor="#FEFEFF"
 
+        android:textColor="#FEFEFF"
         android:textSize="20dp" />
 
 
@@ -66,7 +67,7 @@
         android:layout_alignParentEnd="true"
         android:layout_marginTop="15dp"
         android:layout_marginEnd="16dp"
-        android:fontFamily="@font/philosopher"
+        android:fontFamily="@font/poppins_semibold"
         android:gravity="center"
         android:text=" Авторизация"
         android:textAllCaps="false"
@@ -83,7 +84,7 @@
         android:layout_marginTop="7dp"
         android:layout_marginEnd="25dp"
         android:background="@android:color/transparent"
-        android:fontFamily="@font/philosopher"
+        android:fontFamily="@font/poppins_semibold"
         android:text="Регистрация"
         android:textAllCaps="false"
         android:textColor="#19C179"

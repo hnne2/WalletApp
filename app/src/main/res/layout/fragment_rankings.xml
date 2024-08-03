@@ -12,11 +12,29 @@
         android:layout_width="133dp"
         android:layout_height="33dp"
         android:layout_marginTop="72dp"
+        android:fontFamily="@font/poppins_semibold"
         android:text="Выберите область"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.2"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/swipeRefreshLayoutRankingsFragment"
+        android:layout_width="match_parent"
+        android:layout_height="500dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/spinnerRegion">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/RangingsRecyclerView"
+            android:layout_width="412dp"
+            android:layout_height="420dp"
+            android:layout_marginTop="48dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/spinnerRegion" />
+
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
     <com.example.wallet.ui.rankings.CustomSpinner
         android:id="@+id/spinnerRegion"
@@ -33,13 +51,7 @@
 
     </com.example.wallet.ui.rankings.CustomSpinner>
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/RangingsRecyclerView"
-        android:layout_width="412dp"
-        android:layout_height="420dp"
-        android:layout_marginTop="48dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/spinnerRegion" />
+
 
     <ImageButton
         android:id="@+id/searchImageButton"

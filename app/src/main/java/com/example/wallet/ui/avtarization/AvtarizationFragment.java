@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.util.Base64;
 import android.util.Log;
@@ -36,11 +37,13 @@ public class AvtarizationFragment extends Fragment {
     String login;
     String password;
 
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view =inflater.inflate(R.layout.fragment_avtarization, container, false);
       AvtorizationViewModel  avtorizationViewModel = new ViewModelProvider(getActivity()).get(AvtorizationViewModel.class);
+
       loginEditText= view.findViewById(R.id.NIckNamelEditText);
         passwordEditText= view.findViewById(R.id.passwordEditText);
         LoginButon = view.findViewById(R.id.loginButton);
@@ -51,7 +54,6 @@ public class AvtarizationFragment extends Fragment {
             {
                 String basicAuth = "Basic " + Base64.encodeToString((login + ":" + password).getBytes(), Base64.NO_WRAP);
                 avtorizationViewModel.login(login,password,basicAuth);
-
             }
         if (loginEditText.getText().toString().isEmpty()){
             Toast.makeText(getContext(),"Введите логин",Toast.LENGTH_SHORT).show();

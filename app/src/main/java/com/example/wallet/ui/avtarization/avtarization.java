@@ -35,8 +35,8 @@ public class avtarization extends AppCompatActivity {
         setContentView(R.layout.activity_avtarization);
         avtorizationViewModel = new ViewModelProvider(this).get(AvtorizationViewModel.class);
 
-        fragmentManager =getSupportFragmentManager();
-        fragmentTransaction=fragmentManager.beginTransaction();
+        fragmentManager = getSupportFragmentManager();
+        fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.add(R.id.avtarization_registration,new AvtarizationFragment());
         fragmentTransaction.commit();
 
