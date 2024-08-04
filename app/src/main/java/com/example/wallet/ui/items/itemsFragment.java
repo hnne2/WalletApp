@@ -18,7 +18,9 @@ import com.example.wallet.R;
 import java.util.ArrayList;
 import java.util.List;
 
+import dagger.hilt.android.AndroidEntryPoint;
 
+@AndroidEntryPoint
 public class itemsFragment extends Fragment {
     RecyclerView itemsRecyclerView;
     List<ItemsItem> itemList;
@@ -34,18 +36,22 @@ public class itemsFragment extends Fragment {
         ItemsViewModel itemsViewModel = new ViewModelProvider(this).get(ItemsViewModel.class);
         itemsViewModel.getItems();
         itemList = new ArrayList<>();
+        ItemsRecyclerViewAdapter.onItemClickListener itemClickListener = (itemsItem, position) -> {
+            //клик
+        };
+        itemsRecyclerView=view.findViewById(R.id.recyclerViewItemsFragment);
         itemsViewModel.getMutableItemsResult().observe(getViewLifecycleOwner(), new Observer<List<ItemsItem>>() {
             @Override
             public void onChanged(List<ItemsItem> itemsItems) {
             itemList=itemsItems;
+                itemsRecyclerView.setAdapter(new ItemsRecyclerViewAdapter(getContext(),itemList,itemClickListener));
+                itemsRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
             }
         });
-        itemsRecyclerView=view.findViewById(R.id.recyclerViewItemsFragment);
-        ItemsRecyclerViewAdapter.onItemClickListener itemClickListener = (itemsItem, position) -> {
-            //клик
-        };
-        itemsRecyclerView.setAdapter(new ItemsRecyclerViewAdapter(getContext(),itemList,itemClickListener));
-        itemsRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        Log.d("TAG", "onCreateView: "+itemList.size());
+
+
+
         return view;
     }
 }

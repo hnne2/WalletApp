@@ -1,16 +1,29 @@
 package com.example.wallet.ui.items;
 
 public class ItemsItem {
+
+    int id;
     int chanelAvatar;
     int imageItems;
     String nameChanel;
-    String descriptionsItem;
+    String description;
 
-    public ItemsItem(int chanelAvatar, int imageItems, String nameChanel, String descriptionsItem) {
+    public ItemsItem() {
+    }
+
+    public ItemsItem(int id, int chanelAvatar, int imageItems, String nameChanel, String description) {
+        this.id = id;
         this.chanelAvatar = chanelAvatar;
         this.imageItems = imageItems;
         this.nameChanel = nameChanel;
-        this.descriptionsItem = descriptionsItem;
+        this.description = description;
+    }
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public int getChanelAvatar() {
@@ -37,11 +50,11 @@ public class ItemsItem {
         this.nameChanel = nameChanel;
     }
 
-    public String getDescriptionsItem() {
-        return descriptionsItem;
+    public String getDescription() {
+        return description;
     }
 
-    public void setDescriptionsItem(String descriptionsItem) {
-        this.descriptionsItem = descriptionsItem;
+    public void setDescription(String description) {
+        this.description = description;
     }
 }

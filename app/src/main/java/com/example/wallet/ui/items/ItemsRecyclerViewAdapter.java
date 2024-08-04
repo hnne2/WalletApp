@@ -13,7 +13,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.wallet.R;
 
 import java.util.List;
-import java.util.zip.Inflater;
 
 public class ItemsRecyclerViewAdapter extends RecyclerView.Adapter<ItemsRecyclerViewAdapter.ViewHolder> {
     interface onItemClickListener{
@@ -41,10 +40,10 @@ public class ItemsRecyclerViewAdapter extends RecyclerView.Adapter<ItemsRecycler
     @Override
     public void onBindViewHolder(ItemsRecyclerViewAdapter.ViewHolder holder, int position) {
         ItemsItem item = itemsList.get(position);
-        holder.chanelAvatarItemsRecyclerView.setImageResource(item.chanelAvatar);
-        holder.imageViewItemsRecyclerView.setImageResource(item.imageItems);
+        holder.chanelAvatarItemsRecyclerView.setImageResource(R.drawable.avatar);
+        holder.imageViewItemsRecyclerView.setImageResource(R.drawable.avatar);
         holder.nameChanelItemsRecyclerView.setText(item.nameChanel);
-        holder.descriptionstemsRecyclerView.setText(item.descriptionsItem);
+        holder.descriptionstemsRecyclerView.setText(item.description);
         holder.itemView.setOnClickListener(v -> onItemClickListener.onItemClickListener(item,position));
     }
 
@@ -60,10 +59,10 @@ public class ItemsRecyclerViewAdapter extends RecyclerView.Adapter<ItemsRecycler
         TextView descriptionstemsRecyclerView;
         public ViewHolder(View itemView) {
             super(itemView);
-             chanelAvatarItemsRecyclerView =itemView.findViewById(R.id.chanelAvatarItemsRecyclerView);
+             chanelAvatarItemsRecyclerView = itemView.findViewById(R.id.chanelAvatarItemsRecyclerView);
              imageViewItemsRecyclerView = itemView.findViewById(R.id.imageViewItemsRecyclerView);
-             nameChanelItemsRecyclerView =itemView.findViewById(R.id.nameChanelItemsRecyclerView);
-             descriptionstemsRecyclerView =itemView.findViewById(R.id.descriptionstemsRecyclerView);
+             nameChanelItemsRecyclerView = itemView.findViewById(R.id.nameChanelItemsRecyclerView);
+             descriptionstemsRecyclerView = itemView.findViewById(R.id.descriptionstemsRecyclerView);
         }
     }{
 

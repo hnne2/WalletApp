@@ -41,7 +41,7 @@ public interface MyApiService {
     @POST("registration")
     Call<ResponseBody> regestration(@Body Person person);
 
-    @GET("posts")
+    @GET("items")
     Call<List<ItemsItem>> getItems();
 
 }

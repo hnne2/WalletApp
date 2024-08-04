@@ -21,7 +21,6 @@ import retrofit2.Response;
 public class HomeViewModel extends ViewModel {
     @Inject
     public HomeViewModel(){
-
     }
     MutableLiveData<List<Person>> mutableFriendList;
 
