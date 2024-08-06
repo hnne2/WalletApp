@@ -16,7 +16,6 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import com.example.wallet.PersonDialog.PersonDialogFragment;
 import com.example.wallet.R;
 import com.example.wallet.databinding.FragmentFrendsBinding;
-import com.example.wallet.databinding.FragmentHomeBinding;
 import com.example.wallet.models.Person;
 
 import java.util.ArrayList;
