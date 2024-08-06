@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "723796060297",
+    "project_id": "waletserverresourses",
+    "storage_bucket": "waletserverresourses.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:723796060297:android:8b04f134b663eebdf4be58",
+        "android_client_info": {
+          "package_name": "com.example.wallet"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCqsIliaWEhb2Zzlpt4fUNfO1hp2_m1pBw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

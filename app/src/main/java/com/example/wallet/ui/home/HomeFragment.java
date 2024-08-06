@@ -15,6 +15,7 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.example.wallet.PersonDialog.PersonDialogFragment;
 import com.example.wallet.R;
+import com.example.wallet.databinding.FragmentFrendsBinding;
 import com.example.wallet.databinding.FragmentHomeBinding;
 import com.example.wallet.models.Person;
 
@@ -28,14 +29,14 @@ import dagger.hilt.android.AndroidEntryPoint;
 @AndroidEntryPoint
 public class HomeFragment extends Fragment {
 
-    private FragmentHomeBinding binding;
+    private FragmentFrendsBinding binding;
     SwipeRefreshLayout swipeRefreshLayoutHomeFragment;
     Person avtarizationPerson;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         HomeViewModel homeViewModel = new ViewModelProvider(this).get(HomeViewModel.class);
-        binding = FragmentHomeBinding.inflate(inflater, container, false);
+        binding = FragmentFrendsBinding.inflate(inflater, container, false);
         View view = binding.getRoot();
 
         List<FrendsItem> frends = new ArrayList<>();
