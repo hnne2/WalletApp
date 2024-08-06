@@ -1,5 +1,7 @@
 package com.example.wallet.ui.home;
 
+import java.util.Objects;
+
 public class FrendsItem {
     int AvatarRes;
     String name;
@@ -22,6 +24,23 @@ public class FrendsItem {
         this.Capital = capital;
         this.username=username;
 
+    }
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        FrendsItem that = (FrendsItem) o;
+        return AvatarRes == that.AvatarRes &&
+                Objects.equals(name, that.name) &&
+                Objects.equals(Place, that.Place) &&
+                Objects.equals(Capital, that.Capital) &&
+                Objects.equals(username, that.username);
+    }
+
+    // Переопределяем метод hashCode
+    @Override
+    public int hashCode() {
+        return Objects.hash(AvatarRes, name, Place, Capital, username);
     }
 
     public int getAvatarRes() {

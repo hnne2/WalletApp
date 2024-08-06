@@ -34,50 +34,60 @@ public class PersonDialogFragment extends Fragment {
     Person appPerson;
     @Inject
     public PersonDialogFragment(){}
-   private String username;
+   private String username = "";
+    private static final String bundleUsernameKey = "bundleUsernameKey";
     PersonDialogBinding binding;
 
    @Inject
    @Named("withToken")
    MyApiService apiService;
    ProgressBar progressBar;
+   public static PersonDialogFragment newInstance(String username){
+        PersonDialogFragment personDialogFragment = new PersonDialogFragment();
+        Bundle args = new Bundle();
+        args.putString(bundleUsernameKey,username);
+        personDialogFragment.setArguments(args);
+        return personDialogFragment;
+   }
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         binding =PersonDialogBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
         progressBar =root.findViewById(R.id.progressBarPersonDialog);
-
         appPerson = getActivity().getIntent().getParcelableExtra("person");
         root.setBackgroundResource(R.drawable.zakrugl);
         ConstraintLayout constraintLayout = root.findViewById(R.id.personDialogConstraintLayout);
         constraintLayout.setVisibility(View.GONE);
+        if (getArguments()!=null){
+            username=getArguments().getString(bundleUsernameKey);
+        }
         apiService.userByLogin(username).enqueue(new Callback<Person>() {
             @Override
             public void onResponse(Call<Person> call, Response<Person> response) {
-                Person DialogPerson = response.body();
-                if (DialogPerson!=null){
-                    if (DialogPerson.getFrendslistid()!=null){
+                Person dialogPerson = response.body();
+                if (dialogPerson!=null){
+                    if (dialogPerson.getFrendslistid()!=null){
                     binding.friendCaount.setText(String.valueOf(response.body().getFrendslistid().split(",").length));
-                        if (ifMyFriend(appPerson.getFrendslistid(), DialogPerson.getId())){
+                        if (ifMyFriend(appPerson.getFrendslistid(), dialogPerson.getId())){
                             binding.AddTofriend.setVisibility(View.GONE );
                         }
                     }
                     constraintLayout.setVisibility(View.VISIBLE);
-                    binding.FiotextView.setText(DialogPerson.getUserfio());
-                    binding.CityTextView.setText(DialogPerson.getCity());
-                    binding.freindButton.setText(String.valueOf(DialogPerson.getCapital()));
+                    binding.FiotextView.setText(dialogPerson.getUserfio());
+                    binding.CityTextView.setText(dialogPerson.getCity());
+                    binding.freindButton.setText(String.valueOf(dialogPerson.getCapital()));
                     progressBar.setVisibility(View.INVISIBLE);
 
                     //диалог со списком
 
                     binding.friendCaount.setOnClickListener(v -> {
                         if (!binding.friendCaount.getText().toString().equals("0")){
-                        DialogWithFrend dialogWithFrend= new DialogWithFrend(DialogPerson.getFrendslistid(),DialogPerson.getUserfio());
+
+                        DialogWithFrend dialogWithFrend=DialogWithFrend.newInstance(dialogPerson.getFrendslistid(),dialogPerson.getUserfio());
                         FragmentManager fragmentManager = getChildFragmentManager();
                         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                         fragmentTransaction.add(R.id.PersonDialogFragmentConstraiLayout, dialogWithFrend);
-                        fragmentTransaction.addToBackStack(null);
                         fragmentTransaction.addToBackStack(null);
                         fragmentTransaction.commit();
                         }
@@ -86,13 +96,13 @@ public class PersonDialogFragment extends Fragment {
                     Log.e("my", "dialogUserByLOginSuccses");
                     binding.AddTofriend.setOnClickListener(v -> {
                         progressBar.setVisibility(View.VISIBLE);
-                        appPerson.setFrendslistid(appPerson.getFrendslistid()+","+DialogPerson.getId());
+                        appPerson.setFrendslistid(appPerson.getFrendslistid()+","+dialogPerson.getId());
                         apiService.updatePerson(appPerson).enqueue(new Callback<ResponseBody>() {
                             @Override
                             public void onResponse(Call<ResponseBody> call1, Response<ResponseBody> response1) {
                                 if (response1.body()!=null){
                                     progressBar.setVisibility(View.INVISIBLE);
-                                Toast.makeText(getContext(),DialogPerson.getUserfio()+" добавлен в друзья",Toast.LENGTH_SHORT).show();}
+                                Toast.makeText(getContext(),dialogPerson.getUserfio()+" добавлен в друзья",Toast.LENGTH_SHORT).show();}
                                     else  {Toast.makeText(getContext(),"Ошибка",Toast.LENGTH_SHORT).show();
                                     progressBar.setVisibility(View.INVISIBLE);
                                     }
@@ -109,18 +119,14 @@ public class PersonDialogFragment extends Fragment {
 
             @Override
             public void onFailure(Call<Person> call, Throwable t) {
-
+                Log.e("my", "failure");
             }
         });
-
         return root;
     }
 
 
 
-    public void setUsername(String username) {
-        this.username = username;
-    }
     public boolean ifMyFriend(String frendListId,int dialodPersonId){
         String[] idArr= frendListId.split(",");
         for (String id:idArr

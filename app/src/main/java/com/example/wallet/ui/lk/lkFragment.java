@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -23,6 +24,9 @@ import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.annotation.GlideModule;
+import com.bumptech.glide.module.AppGlideModule;
 import com.example.wallet.FoundSms.FoundSms;
 import com.example.wallet.R;
 import com.example.wallet.sharedPref.SheredPrefsRepository;
@@ -31,6 +35,8 @@ import com.example.wallet.models.Person;
 import com.example.wallet.ui.avtarization.avtarization;
 import com.example.wallet.ui.splashActivity.SplashActivityViewModel;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -50,12 +56,21 @@ public class lkFragment extends Fragment {
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
+
         SplashActivityViewModel splashActivityViewModel = new ViewModelProvider(this).get(SplashActivityViewModel.class);
         binding = FragmentLkBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
         FoundSms foundSms = new FoundSms();
         person = getActivity().getIntent().getParcelableExtra("person");
         BottomNavigationView navView = getActivity().findViewById(R.id.nav_view);
+
+        ImageView avatarImageView = root.findViewById(R.id.AvatarImageView);
+        FirebaseStorage storage = FirebaseStorage.getInstance();
+        StorageReference storageRef = storage.getReference();
+        StorageReference imageRef = storageRef.child(person.getAvatarlink());
+        GlideApp.with(this)
+                .load(imageRef)
+                .into(avatarImageView);
 
         binding.swipeRefreshLayoutLKkFragment.setOnRefreshListener(() ->{
                     Log.d("TAG", "onCreateView: "+person.toString());
@@ -128,4 +143,5 @@ public class lkFragment extends Fragment {
         Intent intent = new Intent(Intent.ACTION_CALL, Uri.parse(ussdUri));
         startActivity(intent);
     }
+
 }

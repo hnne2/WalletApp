@@ -62,8 +62,7 @@ public class searchFragment extends Fragment {
         FrendsRecyclerViewAdapter.OnFrendsClickListener rankingsClickListener = new FrendsRecyclerViewAdapter.OnFrendsClickListener() {
             @Override
             public void onFrendsClick(FrendsItem frend, int position) {
-                PersonDialogFragment personDialogFragment =  new PersonDialogFragment();
-                personDialogFragment.setUsername(frend.getUsername());
+                PersonDialogFragment personDialogFragment = PersonDialogFragment.newInstance(frend.getUsername());
                 FragmentManager fragmentManager = getChildFragmentManager();
                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                 fragmentTransaction.add(R.id.searchFragmentConstrauntLayout,personDialogFragment);

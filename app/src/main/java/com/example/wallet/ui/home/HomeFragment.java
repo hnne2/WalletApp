@@ -48,8 +48,7 @@ public class HomeFragment extends Fragment {
         );
         homeViewModel.getFrindsList(avtarizationPerson.getFrendslistid());
         FrendsRecyclerViewAdapter.OnFrendsClickListener frendsRecylckerViewclickListener = (frend, position) -> {
-            PersonDialogFragment personDialogFragment =  new PersonDialogFragment();
-            personDialogFragment.setUsername(frend.getUsername());
+            PersonDialogFragment personDialogFragment =  PersonDialogFragment.newInstance(frend.getUsername());
             FragmentManager fragmentManager = getChildFragmentManager();
             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
             fragmentTransaction.add(R.id.homeFragmentLayout,personDialogFragment);
@@ -66,14 +65,11 @@ public class HomeFragment extends Fragment {
             binding.frendsRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
             swipeRefreshLayoutHomeFragment.setRefreshing(false);
         });
-
-
         return view;
     }
 
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        binding = null;
     }
 }

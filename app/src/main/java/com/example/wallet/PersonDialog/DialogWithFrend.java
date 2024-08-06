@@ -37,23 +37,34 @@ import retrofit2.Response;
 
 @AndroidEntryPoint
 public class DialogWithFrend extends Fragment {
+    public static final String friendsIdStringBundelKey="friendsIdStringBundelKey";
+    public static final String namePersonStringBundelKey="namePersonStringBundelKey";
     String frendsIdString;
     String namePerson;
     ProgressBar progressBar;
     @Inject
-    DialogWithFrend(String frendsIdString, String namePerson){
-        this.frendsIdString = frendsIdString;
-        this.namePerson = namePerson;
+   public DialogWithFrend(){
     }
     @Inject
     @Named("withToken")
     MyApiService apiService;
-
+    public static DialogWithFrend newInstance(String frendsIdString, String namePerson){
+        DialogWithFrend dialogWithFrend = new DialogWithFrend();
+        Bundle args = new Bundle();
+        args.putString(friendsIdStringBundelKey,frendsIdString);
+        args.putString(namePersonStringBundelKey,namePerson);
+        dialogWithFrend.setArguments(args);
+        return dialogWithFrend;
+    }
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.frends_list_dialog, container, false);
+        if (getArguments()!=null){
+            frendsIdString=getArguments().getString(friendsIdStringBundelKey);
+            namePerson=getArguments().getString(namePersonStringBundelKey);
+        }
         List<FrendsItem> frendsItemList = new ArrayList<>();
             root.setBackgroundResource(R.drawable.zakrugl);
             progressBar= root.findViewById(R.id.progressBarFriends_list_dialog);
@@ -63,11 +74,11 @@ public class DialogWithFrend extends Fragment {
             FrendsRecyclerViewAdapter.OnFrendsClickListener onFrendsClickListener = new FrendsRecyclerViewAdapter.OnFrendsClickListener() {
             @Override
             public void onFrendsClick(FrendsItem frend, int position) {
-                PersonDialogFragment personDialogFragment =  new PersonDialogFragment();
-                personDialogFragment.setUsername(frend.getUsername());
+                PersonDialogFragment personDialogFragment =  PersonDialogFragment.newInstance(frend.getUsername());
                 FragmentManager fragmentManager = getChildFragmentManager();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                 fragmentTransaction.replace(R.id.frendlistConstraintLayoit,personDialogFragment);
+                fragmentTransaction.addToBackStack(null);
                 fragmentTransaction.commit();
             }
         };
@@ -99,13 +110,8 @@ public class DialogWithFrend extends Fragment {
 
         return root;
     }
-
-    public void setFrendsIdString(String frendsIdString) {
-        this.frendsIdString = frendsIdString;
-    }
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
     }
 }

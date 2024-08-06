@@ -2,28 +2,24 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/ConstraintLayoutItemsFragments"
+    android:id="@+id/constrainLayoutItemTextFragment"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#14161B"
-    tools:context=".ui.items.itemsFragment">
+    tools:context=".ItemTextFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-
-    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-        android:id="@+id/swipeRefreshLayouItemsFragment"
-        android:layout_width="match_parent"
+    <TextView
+        android:id="@+id/itemFragmentTextView"
+        android:layout_width="336dp"
         android:layout_height="650dp"
+        android:text="TextView"
+        android:textColor="#FFFFFF"
+        android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.491"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0">
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerViewItemsFragment"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
-    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+        app:layout_constraintVertical_bias="0.366" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

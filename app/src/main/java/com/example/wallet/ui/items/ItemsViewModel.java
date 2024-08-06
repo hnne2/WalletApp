@@ -13,6 +13,7 @@ import javax.inject.Inject;
 import javax.inject.Named;
 
 import dagger.hilt.android.lifecycle.HiltViewModel;
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -47,6 +48,22 @@ public class ItemsViewModel extends ViewModel {
             @Override
             public void onFailure(Call<List<ItemsItem>> call, Throwable t) {
                 Log.d("TAG", "itemsFailure");
+            }
+        });
+    }
+
+    public void updateItems(ItemsItem item){
+        apiService.updateItem(item).enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                if (response.body()!=null){
+                    Log.d("TAG", "onResponse: recyclerview sucses zaproz");
+                }else  Log.d("TAG", "onResponse: recyclerview null");
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+                Log.d("TAG", "onResponse: recyclerview falure");
             }
         });
     }

@@ -43,5 +43,7 @@ public interface MyApiService {
 
     @GET("items")
     Call<List<ItemsItem>> getItems();
+    @POST("LoadItems")
+    Call<ResponseBody> updateItem(@Body ItemsItem item);
 
 }

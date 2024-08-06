@@ -1,6 +1,7 @@
 package com.example.wallet.ui.rankings;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -47,7 +48,7 @@ public class rankingsFragment extends Fragment {
                              ViewGroup container, Bundle savedInstanceState) {
         RankingsViewModel rankingsViewModel =
                 new ViewModelProvider(this).get(RankingsViewModel.class);
-        fragmentManager = getActivity().getSupportFragmentManager();
+        fragmentManager = getChildFragmentManager();
         Person person= getActivity().getIntent().getParcelableExtra("person");
         binding = FragmentRankingsBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
@@ -59,17 +60,14 @@ public class rankingsFragment extends Fragment {
         rankingRegionslist.add(new RankingRegion("Страна", R.drawable.ic_home_black_24dp));
         rankingRegionslist.add(new RankingRegion("Город", R.drawable.ic_home_black_24dp));
 
-        binding.searchImageButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                fragmentTransaction = fragmentManager.beginTransaction();
-                fragmentTransaction.replace(R.id.fragmentRangingsConstraintLayout,new searchFragment());
-               binding.RangingsRecyclerView.setVisibility(View.INVISIBLE);
-               binding.spinnerRegion.setVisibility(View.INVISIBLE);
-               binding.textView5.setVisibility(View.INVISIBLE);
-               binding.searchImageButton.setVisibility(View.INVISIBLE);
-                fragmentTransaction.commit();
-            }
+        binding.searchImageButton.setOnClickListener(v -> {
+            fragmentTransaction = fragmentManager.beginTransaction();
+            fragmentTransaction.replace(R.id.fragmentRangingsConstraintLayout,new searchFragment());
+           binding.RangingsRecyclerView.setVisibility(View.INVISIBLE);
+           binding.spinnerRegion.setVisibility(View.INVISIBLE);
+           binding.textView5.setVisibility(View.INVISIBLE);
+           binding.searchImageButton.setVisibility(View.INVISIBLE);
+            fragmentTransaction.commit();
         });
         binding.spinnerRegion.setAdapter(new RegionAdapter(getContext(),rankingRegionslist));
         binding.spinnerRegion.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener()
@@ -89,13 +87,16 @@ public class rankingsFragment extends Fragment {
         });
         List<FrendsItem> frendsItems = new ArrayList<>();
         FrendsRecyclerViewAdapter.OnFrendsClickListener rankingsClickListener = (frend, position) -> {
-            PersonDialogFragment personDialogFragment =  new PersonDialogFragment();
-            personDialogFragment.setUsername(frend.getUsername());
+            PersonDialogFragment personDialogFragment = PersonDialogFragment.newInstance(frend.getUsername());
             fragmentTransaction = fragmentManager.beginTransaction();
             fragmentTransaction.add(R.id.fragmentRangingsConstraintLayout,personDialogFragment);
+            fragmentTransaction.addToBackStack(null);
             fragmentTransaction.commit();
         };
        rankingsViewModel.getMytableRangingsCityList().observe(getViewLifecycleOwner(), people -> {
+//           if (frendsItems.get(0).equals(people.get(0))){
+//               Log.d("TAG", "equals: true");
+//           }else  Log.d("TAG", "equals: false");
            frendsItems.clear();
            for (int i = 0; i < people.size(); i++) {
                frendsItems.add(new FrendsItem(R.drawable.avatar,people.get(i).userfio,people.get(i).getUsername(),String.valueOf(i+1),String.valueOf(people.get(i).getCapital())));
