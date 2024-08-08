@@ -59,6 +59,7 @@ public class rankingsFragment extends Fragment {
         rankingRegionslist.add(new RankingRegion("Город", R.drawable.ic_home_black_24dp));
         rankingRegionslist.add(new RankingRegion("Страна", R.drawable.ic_home_black_24dp));
         rankingRegionslist.add(new RankingRegion("Город", R.drawable.ic_home_black_24dp));
+        rankingRegionslist.add(new RankingRegion("Мир", R.drawable.ic_home_black_24dp));
 
         binding.searchImageButton.setOnClickListener(v -> {
             fragmentTransaction = fragmentManager.beginTransaction();
@@ -99,7 +100,7 @@ public class rankingsFragment extends Fragment {
 //           }else  Log.d("TAG", "equals: false");
            frendsItems.clear();
            for (int i = 0; i < people.size(); i++) {
-               frendsItems.add(new FrendsItem(R.drawable.avatar,people.get(i).userfio,people.get(i).getUsername(),String.valueOf(i+1),String.valueOf(people.get(i).getCapital())));
+               frendsItems.add(new FrendsItem(people.get(i).getAvatarlink(),people.get(i).userfio,people.get(i).getUsername(),String.valueOf(i+1),String.valueOf(people.get(i).getCapital())));
 
            }
            binding.RangingsRecyclerView.setAdapter(new FrendsRecyclerViewAdapter(getContext(),frendsItems,rankingsClickListener));
@@ -111,7 +112,7 @@ public class rankingsFragment extends Fragment {
            public void onChanged(List<Person> people) {
                frendsItems.clear();
                for (int i = 0; i < people.size(); i++) {
-                   frendsItems.add(new FrendsItem(R.drawable.avatar,people.get(i).userfio,people.get(i).getUsername(),String.valueOf(i+1),String.valueOf(people.get(i).getCapital())));
+                   frendsItems.add(new FrendsItem(people.get(i).getAvatarlink(),people.get(i).userfio,people.get(i).getUsername(),String.valueOf(i+1),String.valueOf(people.get(i).getCapital())));
                }
                binding.RangingsRecyclerView.setAdapter(new FrendsRecyclerViewAdapter(getContext(),frendsItems,rankingsClickListener));
                binding.RangingsRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));

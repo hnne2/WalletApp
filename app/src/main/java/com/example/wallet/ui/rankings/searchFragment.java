@@ -73,7 +73,7 @@ public class searchFragment extends Fragment {
             if (people!=null) {
                 frendsItems.clear();
                 for (int i = 0; i < people.size(); i++) {
-                    frendsItems.add(new FrendsItem(R.drawable.avatar, people.get(i).userfio, people.get(i).getUsername(), String.valueOf(i + 1), String.valueOf(people.get(i).getCapital())));
+                    frendsItems.add(new FrendsItem(people.get(i).getAvatarlink(), people.get(i).userfio, people.get(i).getUsername(), String.valueOf(i + 1), String.valueOf(people.get(i).getCapital())));
                 }
                 searchRecyclerView.setAdapter(new FrendsRecyclerViewAdapter(getContext(), frendsItems, rankingsClickListener));
                 searchRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));

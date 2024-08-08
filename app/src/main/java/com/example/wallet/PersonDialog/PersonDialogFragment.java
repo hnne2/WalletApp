@@ -22,6 +22,10 @@ import com.example.wallet.MyApiService;
 import com.example.wallet.R;
 import com.example.wallet.databinding.PersonDialogBinding;
 import com.example.wallet.models.Person;
+import com.example.wallet.ui.lk.GlideApp;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+
 import javax.inject.Inject;
 import javax.inject.Named;
 import dagger.hilt.android.AndroidEntryPoint;
@@ -56,9 +60,14 @@ public class PersonDialogFragment extends Fragment {
         View root = binding.getRoot();
         progressBar =root.findViewById(R.id.progressBarPersonDialog);
         appPerson = getActivity().getIntent().getParcelableExtra("person");
-        root.setBackgroundResource(R.drawable.zakrugl);
         ConstraintLayout constraintLayout = root.findViewById(R.id.personDialogConstraintLayout);
         constraintLayout.setVisibility(View.GONE);
+        FirebaseStorage storage = FirebaseStorage.getInstance();
+        StorageReference storageRef = storage.getReference();
+        StorageReference imageRef = storageRef.child("images/"+appPerson.getAvatarlink());
+        GlideApp.with(this)
+                .load(imageRef)
+                .into(binding.AvatarImageView);
         if (getArguments()!=null){
             username=getArguments().getString(bundleUsernameKey);
         }

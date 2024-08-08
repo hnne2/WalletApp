@@ -59,8 +59,7 @@ dependencies {
     implementation("com.google.dagger:hilt-android:2.44")
     implementation("androidx.security:security-crypto:1.1.0-alpha03")
     implementation("androidx.swiperefreshlayout:swiperefreshlayout:1.2.0-alpha01")
-
-
+    implementation("androidx.core:core-splashscreen:1.0.0")
     implementation ("com.github.bumptech.glide:glide:4.12.0")
     implementation ("com.firebaseui:firebase-ui-storage:8.0.0")
     annotationProcessor ("com.github.bumptech.glide:compiler:4.12.0")

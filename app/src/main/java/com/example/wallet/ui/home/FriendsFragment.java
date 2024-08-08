@@ -26,7 +26,7 @@ import java.util.List;
 import dagger.hilt.android.AndroidEntryPoint;
 
 @AndroidEntryPoint
-public class HomeFragment extends Fragment {
+public class FriendsFragment extends Fragment {
 
     private FragmentFrendsBinding binding;
     SwipeRefreshLayout swipeRefreshLayoutHomeFragment;
@@ -34,7 +34,7 @@ public class HomeFragment extends Fragment {
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        HomeViewModel homeViewModel = new ViewModelProvider(this).get(HomeViewModel.class);
+        FriendsViewModel friendsViewModel = new ViewModelProvider(this).get(FriendsViewModel.class);
         binding = FragmentFrendsBinding.inflate(inflater, container, false);
         View view = binding.getRoot();
 
@@ -44,9 +44,9 @@ public class HomeFragment extends Fragment {
         swipeRefreshLayoutHomeFragment = view.findViewById(R.id.swipeRefreshHomeFragment);
         swipeRefreshLayoutHomeFragment.setRefreshing(true);
         swipeRefreshLayoutHomeFragment.setOnRefreshListener(() ->
-                homeViewModel.getFrindsList(avtarizationPerson.getFrendslistid())
+                friendsViewModel.getFrindsList(avtarizationPerson.getFrendslistid())
         );
-        homeViewModel.getFrindsList(avtarizationPerson.getFrendslistid());
+        friendsViewModel.getFrindsList(avtarizationPerson.getFrendslistid());
         FrendsRecyclerViewAdapter.OnFrendsClickListener frendsRecylckerViewclickListener = (frend, position) -> {
             PersonDialogFragment personDialogFragment =  PersonDialogFragment.newInstance(frend.getUsername());
             FragmentManager fragmentManager = getChildFragmentManager();
@@ -55,11 +55,11 @@ public class HomeFragment extends Fragment {
             fragmentTransaction.addToBackStack(null);
             fragmentTransaction.commit();
         };
-        homeViewModel.getMutableFriendList().observe(getViewLifecycleOwner(), people -> {
+        friendsViewModel.getMutableFriendList().observe(getViewLifecycleOwner(), people -> {
             frends.clear();
             Collections.sort(people, Comparator.comparing(Person::getCapital).reversed());
             for (int i = 0; i < people.size(); i++) {
-                frends.add(new FrendsItem(R.drawable.avatar,people.get(i).userfio,people.get(i).getUsername(),String.valueOf(i+1),String.valueOf(people.get(i).getCapital())));
+                frends.add(new FrendsItem(people.get(i).getAvatarlink(),people.get(i).userfio,people.get(i).getUsername(),String.valueOf(i+1),String.valueOf(people.get(i).getCapital())));
             }
             binding.frendsRecyclerView.setAdapter(new FrendsRecyclerViewAdapter(getContext(),frends,frendsRecylckerViewclickListener));
             binding.frendsRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));

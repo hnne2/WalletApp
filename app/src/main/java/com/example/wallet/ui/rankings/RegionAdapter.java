@@ -66,11 +66,11 @@ public class RegionAdapter extends BaseAdapter {
                 .inflate(R.layout.item_rankings_region, viewGroup, false);
 
         TextView txtName = rootView.findViewById(R.id.ItemRankingsRegiontextView);
-        ImageView image = rootView.findViewById(R.id.ItemRankingsRegionimageView);
+        //ImageView image = rootView.findViewById(R.id.ItemRankingsRegionimageView);
 
         RankingRegion region = regionList.get(i);
         txtName.setText(region.region);
-        image.setImageResource(region.ImageRes);
+       // image.setImageResource(region.ImageRes);
 
         return rootView;
     }

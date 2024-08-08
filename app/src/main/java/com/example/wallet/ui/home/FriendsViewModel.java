@@ -18,9 +18,9 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 @HiltViewModel
-public class HomeViewModel extends ViewModel {
+public class FriendsViewModel extends ViewModel {
     @Inject
-    public HomeViewModel(){
+    public FriendsViewModel(){
     }
     MutableLiveData<List<Person>> mutableFriendList;
 

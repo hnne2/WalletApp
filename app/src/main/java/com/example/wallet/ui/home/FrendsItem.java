@@ -3,7 +3,7 @@ package com.example.wallet.ui.home;
 import java.util.Objects;
 
 public class FrendsItem {
-    int AvatarRes;
+    String AvatarRes;
     String name;
     String Place;
     String Capital;
@@ -17,7 +17,7 @@ public class FrendsItem {
         this.username = username;
     }
 
-    public FrendsItem(int avatarRes, String name, String username,String place, String capital) {
+    public FrendsItem(String avatarRes, String name, String username,String place, String capital) {
         this.AvatarRes = avatarRes;
         this.name = name;
         this.Place = place;
@@ -43,11 +43,11 @@ public class FrendsItem {
         return Objects.hash(AvatarRes, name, Place, Capital, username);
     }
 
-    public int getAvatarRes() {
+    public String getAvatarRes() {
         return AvatarRes;
     }
 
-    public void setAvatarRes(int avatarRes) {
+    public void setAvatarRes(String avatarRes) {
         AvatarRes = avatarRes;
     }
 

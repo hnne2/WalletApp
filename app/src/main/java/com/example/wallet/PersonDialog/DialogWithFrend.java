@@ -91,7 +91,7 @@ public class DialogWithFrend extends Fragment {
                 frendsItemList.clear();
                 Collections.sort(response.body(), Comparator.comparing(Person::getCapital).reversed());
                 for (int i = 0; i < response.body().size(); i++) {
-                    frendsItemList.add(new FrendsItem(R.drawable.avatar,response.body().get(i).userfio,response.body().get(i).getUsername(),String.valueOf(i+1),String.valueOf(response.body().get(i).getCapital())));
+                    frendsItemList.add(new FrendsItem(response.body().get(i).getAvatarlink(),response.body().get(i).userfio,response.body().get(i).getUsername(),String.valueOf(i+1),String.valueOf(response.body().get(i).getCapital())));
                 }
                 RecyclerView frendsRecyclerView =root.findViewById(R.id.frendsDialogRecyclerView);
                 frendsRecyclerView.setAdapter(new FrendsRecyclerViewAdapter(getContext(),frendsItemList, onFrendsClickListener));

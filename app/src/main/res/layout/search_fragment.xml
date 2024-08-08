@@ -10,19 +10,21 @@
 
     <ImageButton
         android:id="@+id/searchFragmentSearchButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="20dp"
-        android:src="@android:drawable/ic_menu_search"
+        android:layout_width="80dp"
+        android:layout_height="71dp"
+        android:layout_marginTop="8dp"
+        android:backgroundTint="@color/black"
+        android:scaleType="centerInside"
+        android:src="@drawable/search"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/searchRecuclerview"
-        android:layout_width="395dp"
+        android:layout_width="match_parent"
         android:layout_height="587dp"
         android:layout_marginTop="24dp"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/SearchEditText" />
 
@@ -35,6 +37,7 @@
         android:ems="10"
         android:inputType="text"
 
+        android:textColor="@color/white"
         app:layout_constraintEnd_toStartOf="@+id/searchFragmentSearchButton"
         app:layout_constraintHorizontal_bias="0.973"
         app:layout_constraintStart_toStartOf="parent"

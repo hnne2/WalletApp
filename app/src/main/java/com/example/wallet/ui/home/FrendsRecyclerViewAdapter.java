@@ -10,6 +10,9 @@ import android.widget.TextView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.wallet.R;
+import com.example.wallet.ui.lk.GlideApp;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
 import java.util.List;
 
@@ -18,6 +21,7 @@ public class FrendsRecyclerViewAdapter extends RecyclerView.Adapter<FrendsRecycl
     public interface OnFrendsClickListener {
         void onFrendsClick(FrendsItem frend, int position);
     }
+    private final Context context;
 
     private final OnFrendsClickListener onClickListener;
 
@@ -28,6 +32,7 @@ public class FrendsRecyclerViewAdapter extends RecyclerView.Adapter<FrendsRecycl
         this.onClickListener = onClickListener;
         this.frends = frends;
         this.inflater = LayoutInflater.from(context);
+        this.context=context;
     }
     @Override
     public FrendsRecyclerViewAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -39,9 +44,16 @@ public class FrendsRecyclerViewAdapter extends RecyclerView.Adapter<FrendsRecycl
     @Override
     public void onBindViewHolder(FrendsRecyclerViewAdapter.ViewHolder holder, int position) {
         FrendsItem frend = frends.get(position);
-        holder.imageview.setImageResource(frend.getAvatarRes());
+        FirebaseStorage storage = FirebaseStorage.getInstance();
+        StorageReference storageRef = storage.getReference();
+        if (frend.getAvatarRes() !=null){
+            StorageReference ItemsImage = storageRef.child("images/"+frend.getAvatarRes());
+            GlideApp.with(context)
+                    .load(ItemsImage)
+                    .into(holder.imageview);
+        } else holder.imageview.setImageResource(R.drawable.avatar);
         holder.nameView.setText(frend.getName());
-        holder.capitalView.setText(frend.getCapital());
+        holder.capitalView.setText("₽"+frend.getCapital());
         holder.PlaceView.setText(frend.getPlace());
         holder.itemView.setOnClickListener(v -> onClickListener.onFrendsClick(frend, position));
     }
