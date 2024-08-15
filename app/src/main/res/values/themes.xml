@@ -24,4 +24,12 @@
         <item name="android:windowIsTranslucent">false</item>
         <item name="android:windowBackground">@drawable/p2</item>
     </style>
+
+    <style name="CustomAutoCompleteDropdown" parent="Widget.AppCompat.AutoCompleteTextView">
+        <item name="android:popupBackground">@color/black</item> <!-- Черный фон -->
+        <item name="android:textColor">#FFFFFF</item> <!-- Белый цвет текста -->
+        <item name="android:divider">#CCCCCC</item> <!-- Цвет разделителя между элементами -->
+        <item name="android:dropDownVerticalOffset">5dp</item> <!-- Отступ от TextView -->
+        <item name="android:dropDownHorizontalOffset">0dp</item> <!-- Горизонтальный отступ -->
+    </style>
 </resources>

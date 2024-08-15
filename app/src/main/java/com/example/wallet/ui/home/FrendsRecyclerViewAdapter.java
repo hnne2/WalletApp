@@ -47,11 +47,12 @@ public class FrendsRecyclerViewAdapter extends RecyclerView.Adapter<FrendsRecycl
         FirebaseStorage storage = FirebaseStorage.getInstance();
         StorageReference storageRef = storage.getReference();
         if (frend.getAvatarRes() !=null){
-            StorageReference ItemsImage = storageRef.child("images/"+frend.getAvatarRes());
-            GlideApp.with(context)
-                    .load(ItemsImage)
-                    .into(holder.imageview);
-        } else holder.imageview.setImageResource(R.drawable.avatar);
+            if (frend.getAvatarRes().length()>0) {
+                StorageReference ItemsImage = storageRef.child("images/" + frend.getAvatarRes());
+                GlideApp.with(context)
+                        .load(ItemsImage)
+                        .into(holder.imageview);
+            } }
         holder.nameView.setText(frend.getName());
         holder.capitalView.setText("₽"+frend.getCapital());
         holder.PlaceView.setText(frend.getPlace());

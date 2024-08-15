@@ -40,12 +40,5 @@ public class avtarization extends AppCompatActivity {
         fragmentTransaction.add(R.id.avtarization_registration,new AvtarizationFragment());
         fragmentTransaction.commit();
 
-
-        avtorizationViewModel.getLoginSuccses().observe(this, liginSuccses -> {
-            Log.e("TAG","liginSuccses");
-            if (liginSuccses){
-                startActivity(new Intent(avtarization.this, MainActivity.class));
-            }else Toast.makeText(avtarization.this, "Не верный логин или пароль",Toast.LENGTH_SHORT).show();
-        });
     }
 }

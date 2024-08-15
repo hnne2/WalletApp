@@ -3,6 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:padding="16dp"
     tools:context=".ui.avtarization.avtarization">
     >
@@ -14,16 +15,16 @@
         android:layout_alignParentEnd="true"
         android:layout_marginTop="80dp"
         android:layout_marginEnd="16dp"
-
         android:background="@drawable/login_shape"
         android:drawableStart="@drawable/chelovechekxml"
         android:drawablePadding="20dp"
-        android:drawableTint="#19C179"
+        android:drawableTint="@color/seriy"
         android:fontFamily="@font/poppins_semibold"
         android:hint="логин"
+        android:textColorHint="@color/seriy"
         android:inputType="textEmailAddress"
         android:maxLines="1"
-        android:textColor="#C4C4C4" />
+        android:textColor="@color/white" />
 
     <EditText
         android:id="@+id/passwordEditText"
@@ -33,16 +34,16 @@
         android:layout_alignParentEnd="true"
         android:layout_marginTop="20dp"
         android:layout_marginEnd="16dp"
-
         android:background="@drawable/login_shape"
         android:drawableStart="@drawable/chelovechekxml"
         android:drawablePadding="20dp"
-        android:drawableTint="#19C179"
+        android:drawableTint="@color/seriy"
         android:fontFamily="@font/poppins_semibold"
+        android:textColorHint="@color/seriy"
         android:hint="пароль"
         android:inputType="textPassword"
         android:maxLines="1"
-        android:textColor="#C4C4C4" />
+        android:textColor="@color/white" />
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/loginButton"
@@ -50,9 +51,11 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/passwordEditText"
         android:layout_marginTop="60dp"
-        android:background="@drawable/button_rounded"
+
+        android:background="@drawable/zakrugl"
         android:fontFamily="@font/poppins_semibold"
-        android:text="войти"
+
+        android:text="confirm"
         android:textAllCaps="false"
 
         android:textColor="#FEFEFF"
@@ -67,27 +70,27 @@
         android:layout_alignParentEnd="true"
         android:layout_marginTop="15dp"
         android:layout_marginEnd="16dp"
-        android:fontFamily="@font/poppins_semibold"
         android:gravity="center"
-        android:text=" Авторизация"
+        android:text="login"
         android:textAllCaps="false"
-        android:textColor="#3B3B3B"
+        android:textColor="@color/white"
         android:textSize="24dp"
-        android:textStyle="italic" />
 
-    <Button
+        android:fontFamily="@font/poppins_semibold"/>
+
+    <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/registbutton"
-        android:layout_width="wrap_content"
+        android:layout_width="167dp"
         android:layout_height="wrap_content"
         android:layout_below="@+id/passwordEditText"
         android:layout_alignParentEnd="true"
         android:layout_marginTop="7dp"
         android:layout_marginEnd="25dp"
-        android:background="@android:color/transparent"
+        android:background="@color/black"
         android:fontFamily="@font/poppins_semibold"
-        android:text="Регистрация"
+        android:text="registarion"
         android:textAllCaps="false"
-        android:textColor="#19C179"
+        android:textColor="@color/white"
         android:textSize="20dp" />
 
 

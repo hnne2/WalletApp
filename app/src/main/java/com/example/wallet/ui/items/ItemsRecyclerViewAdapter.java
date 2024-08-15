@@ -12,19 +12,12 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.wallet.MyApiService;
 import com.example.wallet.R;
-import com.example.wallet.models.Person;
 import com.example.wallet.ui.lk.GlideApp;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
 import java.util.List;
-
-import okhttp3.ResponseBody;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 public class ItemsRecyclerViewAdapter extends RecyclerView.Adapter<ItemsRecyclerViewAdapter.ViewHolder> {
     interface onItemClickListener{
@@ -37,9 +30,6 @@ public class ItemsRecyclerViewAdapter extends RecyclerView.Adapter<ItemsRecycler
     Context context;
     ItemsViewModel itemsViewModel;
     int personId;
-
-
-
     public ItemsRecyclerViewAdapter(int personId, ItemsViewModel itemsViewModel,Context context,List<ItemsItem> itemsList, ItemsRecyclerViewAdapter.onItemClickListener onItemClickListener) {
         this.inflater = LayoutInflater.from(context);
         this.itemsList = itemsList;
@@ -48,7 +38,6 @@ public class ItemsRecyclerViewAdapter extends RecyclerView.Adapter<ItemsRecycler
         this.itemsViewModel=itemsViewModel;
         this.personId=personId;
     }
-
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -90,7 +79,9 @@ public class ItemsRecyclerViewAdapter extends RecyclerView.Adapter<ItemsRecycler
             }
         }
         if (isLikedPost){   //если лайкнут изменить картинку кнопки лайка
-            holder.likeImageButton.setBackgroundColor(context.getColor(R.color.purple_200));
+            Log.d("TAG", "isLikedPost: liked");
+            holder.likeImageButton.setImageResource(R.drawable.likered);
+
         }
 
         holder.likeImageButton.setOnClickListener(new View.OnClickListener() {
@@ -110,7 +101,7 @@ public class ItemsRecyclerViewAdapter extends RecyclerView.Adapter<ItemsRecycler
                     holder.countLikes.setText(String.valueOf(item.likes));
                     item.wholikedsId = item.wholikedsId + personId + ",";
                     itemsViewModel.updateItems(item);
-                    holder.likeImageButton.setBackgroundColor(context.getColor(R.color.purple_200));
+                    holder.likeImageButton.setImageResource(R.drawable.likered);
                 }
             }
         });

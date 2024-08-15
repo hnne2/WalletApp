@@ -33,6 +33,7 @@ public class SplashActivityViewModel extends ViewModel {
     SheredPrefsRepository mSheredPrefsRepository;
     MutableLiveData<Person> userInfoSucsess;
     MutableLiveData<Boolean> updateSuccses;
+
     public MutableLiveData<Person> getUserInfoSucsess() {
         if(userInfoSucsess==null){
             userInfoSucsess = new MutableLiveData<>();
@@ -50,8 +51,9 @@ public class SplashActivityViewModel extends ViewModel {
             @Override
             public void onResponse(Call<Person> call, Response<Person> response) {
                 if (response.body()!=null){
+
                     getUserInfoSucsess().setValue(response.body());
-                    Log.d("TAG", "onResponse:"+response.body());
+                    Log.d("TAG", "onResponseuserByLogin"+response.body().getIsOpen_acc());
                 }
             }
             @Override
@@ -61,12 +63,14 @@ public class SplashActivityViewModel extends ViewModel {
     }
 
     public void updatePerson(Person person){
+
         apiService.updatePerson(person).enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                 if (response.body()!=null){
-                    Log.e("my","updatePersonSucsses");
+                    Log.e("my","updatePersonSucsses"+person.getIsOpen_acc());
                     getUpdateSuccses().setValue(true);
+
                 }else{ Log.e("my","erorUpdate");
                     getUpdateSuccses().setValue(false);}
             }

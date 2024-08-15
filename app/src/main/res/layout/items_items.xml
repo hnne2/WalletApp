@@ -7,39 +7,44 @@
 
     <ImageButton
         android:id="@+id/disLikeimageButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="148dp"
-        android:src="@android:drawable/btn_star"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageViewItemsRecyclerView"
-        app:layout_constraintVertical_bias="1.0" />
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="4dp"
+        android:backgroundTint="@color/black"
+        android:foregroundGravity="top"
+        android:scaleType="fitCenter"
+        android:src="@drawable/dislike"
+        app:layout_constraintStart_toEndOf="@+id/countLIkes"
+        app:layout_constraintTop_toBottomOf="@+id/imageViewItemsRecyclerView" />
 
     <ImageButton
         android:id="@+id/LikeimageButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:src="@android:drawable/btn_star"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:backgroundTint="@color/black"
+        android:foregroundGravity="fill"
+        android:scaleType="fitCenter"
+        android:src="@drawable/like"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.101"
+        app:layout_constraintHorizontal_bias="0.094"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageViewItemsRecyclerView"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintTop_toBottomOf="@+id/imageViewItemsRecyclerView" />
 
-    <ImageView
+    <com.makeramen.roundedimageview.RoundedImageView
         android:id="@+id/chanelAvatarItemsRecyclerView"
-        android:layout_width="68dp"
-        android:layout_height="55dp"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:scaleType="centerCrop"
+        android:textColor="#FFFFFF"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.046"
+        app:layout_constraintHorizontal_bias="0.094"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.05"
-        android:textColor="#FFFFFF"
+        app:layout_constraintVertical_bias="0.047"
+        app:riv_border_color="@color/seriy"
+        app:riv_border_width="2dip"
+        app:riv_corner_radius="20dip"
         tools:srcCompat="@tools:sample/avatars" />
 
     <TextView
@@ -48,9 +53,9 @@
         android:layout_height="49dp"
         android:gravity="center_vertical"
         android:text="TextView"
-        android:textColor="#FFFFFF"
+        android:textColor="@color/white"
+        android:textSize="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
-
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.588"
         app:layout_constraintStart_toEndOf="@+id/chanelAvatarItemsRecyclerView"
@@ -63,7 +68,8 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:text="TextView"
-        android:textColor="#FFFFFF"
+        android:textColor="@color/white"
+        android:textSize="16dp"
         android:lines="3"
         android:maxLines="10"
         android:ellipsize="end"
@@ -72,10 +78,14 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/nameChanelItemsRecyclerView" />
 
-    <ImageView
+    <com.makeramen.roundedimageview.RoundedImageView
+        app:riv_corner_radius="30dip"
+        app:riv_border_width="2dip"
+        app:riv_border_color="@color/seriy"
         android:id="@+id/imageViewItemsRecyclerView"
         android:layout_width="match_parent"
         android:layout_height="219dp"
+        android:scaleType="centerCrop"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -85,15 +95,14 @@
 
     <TextView
         android:id="@+id/countLIkes"
-        android:layout_width="54dp"
-        android:layout_height="41dp"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="4dp"
+        android:gravity="left|center_vertical"
         android:text="TextView"
         android:textColor="#FFFFFF"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/disLikeimageButton"
-        app:layout_constraintHorizontal_bias="0.112"
+        android:textSize="15dp"
         app:layout_constraintStart_toEndOf="@+id/LikeimageButton"
-        app:layout_constraintTop_toBottomOf="@+id/imageViewItemsRecyclerView"
-        app:layout_constraintVertical_bias="0.666" />
+        app:layout_constraintTop_toBottomOf="@+id/imageViewItemsRecyclerView" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

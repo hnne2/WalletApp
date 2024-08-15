@@ -12,6 +12,8 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 
+import android.os.Handler;
+import android.os.Looper;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,6 +22,7 @@ import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.example.wallet.MainActivity;
@@ -32,6 +35,8 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 public class Fragment_registration extends Fragment {
     Button backToLiginButton;
@@ -46,14 +51,45 @@ public class Fragment_registration extends Fragment {
     AutoCompleteTextView cityAutoCompleteTextView;
     InputStream inputStream;
     XMLParser parser;
-
+    ProgressBar progressBar;
 
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_registration, container, false);
         AvtorizationViewModel avtorizationViewModel = new ViewModelProvider(getActivity()).get(AvtorizationViewModel.class);
+        progressBar = getActivity().findViewById(R.id.progressBarAuth);
+        ExecutorService executor = Executors.newSingleThreadExecutor();
+        Handler handler = new Handler(Looper.getMainLooper());
 
+        executor.execute(new Runnable() {
+            @Override
+            public void run() {
+                // Фоновая задача
+                InputStream inputStream = getResources().openRawResource(R.raw.rocid);
+                XMLParser parser = new XMLParser();
+                List<City> cityList = parser.parse(inputStream);
+                final Map<String, City> cityMap = new HashMap<>();
+                // заполнение мап для поиска выбранного города
+                for (City city : cityList) {
+                    cityMap.put(city.getName(), city);
+                }
+
+                // Обновление UI
+                handler.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        if (getActivity() != null) {
+                        cityAutoCompleteTextView = view.findViewById(R.id.CityAutoCompleteTextViewFragmentREg);
+                        ArrayAdapter<City> adapter = new ArrayAdapter<>(getActivity(),
+                                R.layout.auto_coplite_item, cityList);
+                        cityAutoCompleteTextView.setAdapter(adapter);
+                        cityAutoCompleteTextView.setVisibility(View.VISIBLE);
+                        }else Toast.makeText(getContext(), "eror", Toast.LENGTH_SHORT).show();
+                    }
+                });
+            }
+        });
         nickNameEditText = view.findViewById(R.id.NIckNamelEditText);
         userFioEditText = view.findViewById(R.id.UserFioEditText);
         passordEditText = view.findViewById(R.id.passwordEditTextRegFrag);
@@ -65,20 +101,7 @@ public class Fragment_registration extends Fragment {
             fragmentTransaction.replace(R.id.avtarization_registration, new AvtarizationFragment());
             fragmentTransaction.commit();
         });
-
-        cityAutoCompleteTextView = view.findViewById(R.id.CityAutoCompleteTextView);
-        inputStream = getResources().openRawResource(R.raw.rocid);
-         parser = new XMLParser();
-        cityList = parser.parse(inputStream);
         Button regButton = view.findViewById(R.id.to_registr_but);
-        cityMap = new HashMap<>();
-            // заполнение мап для поиска выбранного города
-        for (City city : cityList) {
-            cityMap.put(city.getName(), city);
-        }
-        ArrayAdapter<City> adapter = new ArrayAdapter<>(getActivity(),
-                android.R.layout.simple_dropdown_item_1line, cityList);
-        cityAutoCompleteTextView.setAdapter(adapter);
         regButton.setOnClickListener(v -> {
             String selectedCityName = cityAutoCompleteTextView.getText().toString();
             City selectedCity = cityMap.get(selectedCityName);
@@ -89,7 +112,10 @@ public class Fragment_registration extends Fragment {
             if (!nickname.isEmpty() && !userfio.isEmpty() && selectedCity != null
                     && !password.isEmpty() && confirmPassword.equals(password)
             ) {
+                if (progressBar.getVisibility()==View.INVISIBLE){
                 avtorizationViewModel.registration(nickname,userfio,String.valueOf(selectedCity.countryId),selectedCity.name,password );
+                }
+                progressBar.setVisibility(View.VISIBLE);
             }
             if (nickname.isEmpty()){
                 Toast.makeText(getContext(),
@@ -123,6 +149,7 @@ public class Fragment_registration extends Fragment {
         avtorizationViewModel.getRegestragionSuccses().observe(getViewLifecycleOwner(), new Observer<Boolean>() {
             @Override
             public void onChanged(Boolean aBoolean) {
+                progressBar.setVisibility(View.INVISIBLE);
                 if (aBoolean){
                     Toast.makeText(getContext(),"Регистрация успешна",Toast.LENGTH_LONG);
                     fragmentManager = getActivity().getSupportFragmentManager();
@@ -134,6 +161,9 @@ public class Fragment_registration extends Fragment {
         });
         return view;
     }
+
+
+
 }
 
 

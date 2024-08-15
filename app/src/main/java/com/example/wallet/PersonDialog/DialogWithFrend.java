@@ -66,7 +66,6 @@ public class DialogWithFrend extends Fragment {
             namePerson=getArguments().getString(namePersonStringBundelKey);
         }
         List<FrendsItem> frendsItemList = new ArrayList<>();
-            root.setBackgroundResource(R.drawable.zakrugl);
             progressBar= root.findViewById(R.id.progressBarFriends_list_dialog);
             progressBar.setVisibility(View.VISIBLE);
         TextView NamePerson =root.findViewById(R.id.NamePersonFrendsListTextView);
@@ -91,7 +90,11 @@ public class DialogWithFrend extends Fragment {
                 frendsItemList.clear();
                 Collections.sort(response.body(), Comparator.comparing(Person::getCapital).reversed());
                 for (int i = 0; i < response.body().size(); i++) {
-                    frendsItemList.add(new FrendsItem(response.body().get(i).getAvatarlink(),response.body().get(i).userfio,response.body().get(i).getUsername(),String.valueOf(i+1),String.valueOf(response.body().get(i).getCapital())));
+                    String capital;
+                    if (response.body().get(i).getIsOpen_acc()==1){
+                        capital = String.valueOf(response.body().get(i).getCapital());
+                    }else capital ="скрыт";
+                    frendsItemList.add(new FrendsItem(response.body().get(i).getAvatarlink(),response.body().get(i).userfio,response.body().get(i).getUsername(),String.valueOf(i+1),capital));
                 }
                 RecyclerView frendsRecyclerView =root.findViewById(R.id.frendsDialogRecyclerView);
                 frendsRecyclerView.setAdapter(new FrendsRecyclerViewAdapter(getContext(),frendsItemList, onFrendsClickListener));

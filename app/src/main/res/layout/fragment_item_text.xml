@@ -6,12 +6,15 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#14161B"
-    tools:context=".ItemTextFragment">
+    tools:context=".ItemTextFragment"
+    android:clickable="true"
+    android:focusable="true"
+    >
 
     <TextView
         android:id="@+id/itemFragmentTextView"
-        android:layout_width="336dp"
-        android:layout_height="650dp"
+        android:layout_width="337dp"
+        android:layout_height="656dp"
         android:text="TextView"
         android:textColor="#FFFFFF"
         android:textSize="20sp"

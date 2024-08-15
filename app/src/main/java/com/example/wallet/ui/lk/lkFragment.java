@@ -6,7 +6,6 @@ import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.util.Log;
@@ -20,16 +19,19 @@ import androidx.annotation.Nullable;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import com.example.wallet.FoundSms.FoundSms;
+import com.example.wallet.ItemTextFragment;
 import com.example.wallet.R;
 import com.example.wallet.sharedPref.SheredPrefsRepository;
 import com.example.wallet.databinding.FragmentLkBinding;
 import com.example.wallet.models.Person;
 import com.example.wallet.ui.avtarization.avtarization;
+import com.example.wallet.ui.sitings.SettingsFragment;
 import com.example.wallet.ui.splashActivity.SplashActivityViewModel;
-import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.storage.FirebaseStorage;
@@ -40,6 +42,8 @@ import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
+
 import javax.inject.Inject;
 import dagger.hilt.android.AndroidEntryPoint;
 @AndroidEntryPoint
@@ -50,48 +54,52 @@ public class lkFragment extends Fragment {
     private static final int REQUEST_IMAGE_PICK = 2;
     private FragmentLkBinding binding;
     Person person;
+    FoundSms foundSms;
     SplashActivityViewModel splashActivityViewModel;
+    FragmentTransaction fragmentTransaction;
+    FragmentManager fragmentManager;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
 
-         splashActivityViewModel = new ViewModelProvider(this).get(SplashActivityViewModel.class);
+         splashActivityViewModel = new ViewModelProvider(this).get(SplashActivityViewModel.class);  //инициализация
         binding = FragmentLkBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
-        FoundSms foundSms = new FoundSms();
         person = getActivity().getIntent().getParcelableExtra("person");
-        BottomNavigationView navView = getActivity().findViewById(R.id.nav_view);
-
-        ImageView avatarImageView = root.findViewById(R.id.AvatarImageView);
-        avatarImageView.setOnClickListener(new View.OnClickListener() {
+        foundSms = new FoundSms();
+        binding.sitingsImageButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.READ_EXTERNAL_STORAGE)
-                        != PackageManager.PERMISSION_GRANTED) {
-                    requestPermissions(new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, REQUEST_IMAGE_PICK);
-                } else {
-                    openGallery();
-                }
-
-
+                fragmentManager = getChildFragmentManager();
+                fragmentTransaction = fragmentManager.beginTransaction();
+                fragmentTransaction.add(R.id.lkConstraintLAyout, new SettingsFragment());
+                fragmentTransaction.addToBackStack(null);
+                fragmentTransaction.commit();
             }
         });
 
+        BottomNavigationView navView = getActivity().findViewById(R.id.nav_view);
+        ImageView avatarImageView = root.findViewById(R.id.AvatarImageView);
+        avatarImageView.setOnClickListener(v -> {
+            if (ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.READ_EXTERNAL_STORAGE)
+                    != PackageManager.PERMISSION_GRANTED) {
+                requestPermissions(new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, REQUEST_IMAGE_PICK);
+            } else {openGallery();}
+        });
         FirebaseStorage storage = FirebaseStorage.getInstance();
         StorageReference storageRef = storage.getReference();
         StorageReference imageRef = storageRef.child("images/"+person.getAvatarlink());
-        GlideApp.with(this)
+        GlideApp.with(this)                                   //загрузка аватарки
                 .load(imageRef)
                 .into(avatarImageView);
-
-        binding.swipeRefreshLayoutLKkFragment.setOnRefreshListener(() ->{
+        binding.swipeRefreshLayoutLKkFragment.setOnRefreshListener(() ->{          //обновление свайпом
             Log.d("TAG", "onCreateView: "+person.toString());
             person = foundSms.updateCapital(person, getActivity().getContentResolver());
             binding.FiotextView.setText(person.getUserfio());
             if (person.getFrendslistid() != null) {
                 binding.freindButton.setText(String.valueOf(person.getFrendslistid().split(",").length));
             }
-            List<BankItemReciclerView> banks = new ArrayList<>();
+            List<BankItemReciclerView> banks = new ArrayList<>(); //иницализация банков
             banks.add(new BankItemReciclerView("Sberbank", person.getBalansinsber()+"р", R.drawable.spericon));
             banks.add(new BankItemReciclerView("Tincoff", person.getBalansintinkoff()+"р", R.drawable.tinkofficon));
             splashActivityViewModel.updatePerson(person);
@@ -100,25 +108,20 @@ public class lkFragment extends Fragment {
         splashActivityViewModel.getUpdateSuccses().observe(getViewLifecycleOwner(), aBoolean -> {
             binding.swipeRefreshLayoutLKkFragment.setRefreshing(false);
         });
-
         binding.exitImageButton.setOnClickListener(v -> {
             msheredPrefsRepository.pootLogPas("logPassEncode","empty");
             startActivity(new Intent(getContext(), avtarization.class));
             getActivity().finish();
-
         });
-
         binding.FiotextView.setText(person.getUserfio());
         if (person.getFrendslistid() != null) {
             binding.freindButton.setText(String.valueOf(person.getFrendslistid().split(",").length));
-        }
-
+                                              }
         List<BankItemReciclerView> banks = new ArrayList<>();
         banks.add(new BankItemReciclerView("Sberbank", person.getBalansintinkoff()+"р", R.drawable.spericon));
         banks.add(new BankItemReciclerView("Tincoff", person.getBalansinsber()+"р", R.drawable.tinkofficon));
-
         WallatsRecyclerViewAdapter.OnStateClickListener WalletClickListener = (bank, position) -> {
-            if (bank.BankName.equals("Sberbank")) {
+            if (bank.BankName.equals("Sberbank")) { //запрос баланса при нажатии на сбербанк
                 if (ContextCompat.checkSelfPermission(getContext(), Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
                     ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.CALL_PHONE}, REQUEST_CALL_PERMISSION);
                 } else {
@@ -126,12 +129,31 @@ public class lkFragment extends Fragment {
                 }
             }
         };
-
         binding.BalansRecyclerView.setAdapter(new WallatsRecyclerViewAdapter(getContext(), banks, WalletClickListener));
         binding.BalansRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         binding.freindButton.setOnClickListener(v -> navView.setSelectedItemId(R.id.navigation_home));
         binding.buttonPlaceInFriend.setOnClickListener(v -> navView.setSelectedItemId(R.id.navigation_home));
-
+        binding.lkText1imageButton.setOnClickListener((v)->{
+            ItemTextFragment itemTextFragment = ItemTextFragment.newInstance(getString(R.string.lorem_ipsum));
+            fragmentManager = getChildFragmentManager();
+           fragmentManager.beginTransaction()
+                   .add(R.id.lkConstraintLAyout, itemTextFragment)
+                   .addToBackStack(null).commit();
+        });
+        binding.lkText2imageButton.setOnClickListener((v)->{
+            ItemTextFragment itemTextFragment = ItemTextFragment.newInstance(getString(R.string.lorem_ipsum));
+            fragmentManager = getChildFragmentManager();
+            fragmentManager.beginTransaction()
+                    .add(R.id.lkConstraintLAyout, itemTextFragment)
+                    .addToBackStack(null).commit();
+        });
+        binding.lkText3mageButton.setOnClickListener((v)->{
+            ItemTextFragment itemTextFragment = ItemTextFragment.newInstance(getString(R.string.lorem_ipsum));
+            fragmentManager = getChildFragmentManager();
+            fragmentManager.beginTransaction()
+                    .add(R.id.lkConstraintLAyout, itemTextFragment)
+                    .addToBackStack(null).commit();
+        });
         return root;
     }
 
@@ -155,7 +177,6 @@ public class lkFragment extends Fragment {
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
                                            @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        Toast.makeText(getContext(), "код"+ requestCode, Toast.LENGTH_SHORT).show();
         if (requestCode == REQUEST_IMAGE_PICK) {
             openGallery();
         }
@@ -167,7 +188,6 @@ public class lkFragment extends Fragment {
             }
         }
     }
-
     private void callUSSD() {
         String ussdCode = "*900*01#";
         String encodedUssd = Uri.encode(ussdCode);
@@ -175,7 +195,6 @@ public class lkFragment extends Fragment {
         Intent intent = new Intent(Intent.ACTION_CALL, Uri.parse(ussdUri));
         startActivity(intent);
     }
-
     @Override
     public void onDestroyView() {
         super.onDestroyView();
@@ -185,18 +204,16 @@ public class lkFragment extends Fragment {
     FirebaseStorage storage = FirebaseStorage.getInstance();
     StorageReference storageRef = storage.getReference();
     // Создаем ссылку на файл, который будет сохранен в Firebase Storage
-    StorageReference imageRef = storageRef.child("images/" + person.getId()+ ".jpg");
+        StorageReference imageRef = storageRef.child("images/" + UUID.randomUUID().toString() + ".jpg");
     // Загружаем файл
         UploadTask uploadTask = imageRef.putBytes(imageData);
-
     // Отслеживаем процесс загрузки
                 uploadTask.addOnSuccessListener(taskSnapshot -> {
         // Получаем ссылку на загруженный файл
         imageRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
             @Override
             public void onSuccess(Uri uri) {
-                // Здесь вы можете использовать ссылку на загруженный файл
-                String downloadUrl = uri.toString();
+                storageRef.child("images/" + person.getAvatarlink()).delete();
                 person.setAvatarlink(imageRef.getName());
                 splashActivityViewModel.updatePerson(person);
                 Toast.makeText(getContext(), "Изображение загружено", Toast.LENGTH_SHORT).show();
@@ -211,16 +228,12 @@ public class lkFragment extends Fragment {
         try {
             // Получаем InputStream из URI изображения
             InputStream imageStream = getContext().getContentResolver().openInputStream(imageUri);
-
             // Конвертируем InputStream в Bitmap
             Bitmap originalBitmap = BitmapFactory.decodeStream(imageStream);
-
             // Опционально: Сжимаем изображение, уменьшая его разрешение
             Bitmap scaledBitmap = Bitmap.createScaledBitmap(originalBitmap, originalBitmap.getWidth() / 2, originalBitmap.getHeight() / 2, true);
-
             // Создаем ByteArrayOutputStream, чтобы хранить сжатое изображение
             ByteArrayOutputStream baos = new ByteArrayOutputStream();
-
             // Сжимаем изображение в формате JPEG с качеством 75% (можно настроить)
             scaledBitmap.compress(Bitmap.CompressFormat.JPEG, 75, baos);
 
@@ -229,7 +242,6 @@ public class lkFragment extends Fragment {
 
             // Загружаем сжатое изображение в Firebase Storage
             uploadCompressedImageToFirebaseStorage(imageData);
-
         } catch (Exception e) {
             Toast.makeText(getContext(), "Ошибка сжатия изображения: " + e.getMessage(), Toast.LENGTH_SHORT).show();
         }

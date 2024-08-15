@@ -5,7 +5,10 @@
     android:id="@+id/PersonDialogFragmentConstraiLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#14161B"
+    android:background="@color/black"
+    android:alpha="1"
+    android:clickable="true"
+    android:focusable="true"
     tools:context=".PersonDialog.PersonDialogFragment">
 
     <ProgressBar
@@ -19,22 +22,15 @@
         app:layout_constraintTop_toTopOf="parent" />
 
 
-    <HorizontalScrollView
-        android:id="@+id/scrollView2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        tools:ignore="MissingConstraints"
-        tools:layout_editor_absoluteY="0dp">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/personDialogConstraintLayout"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            app:layout_constraintTop_toTopOf="@+id/scrollView2">
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
             <Button
                 android:id="@+id/AddTofriend"
@@ -44,9 +40,10 @@
                 android:backgroundTint="@color/black"
                 android:clickable="true"
                 android:fontFamily="@font/poppins_semibold"
-                android:text="Подписаться"
+                android:text="отравить заявку"
                 android:textColor="@color/white"
                 android:textSize="20dp"
+                android:textAllCaps="false"
                 app:cornerRadius="15dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -67,21 +64,25 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textView2" />
 
-            <ImageView
+            <com.makeramen.roundedimageview.RoundedImageView
                 android:id="@+id/AvatarImageView"
-                android:layout_width="173dp"
-                android:layout_height="132dp"
-                android:layout_marginTop="20dp"
-                android:background="@drawable/avatar"
+                android:layout_width="165dp"
+                android:layout_height="157dp"
+                android:layout_marginTop="32dp"
+                android:scaleType="fitCenter"
+                android:src="@drawable/avatar"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                app:riv_border_width="2dip"
+                app:riv_corner_radius="30dip" />
+
 
             <TextView
                 android:id="@+id/FiotextView"
-                android:layout_width="345dp"
-                android:layout_height="42dp"
-                android:layout_marginTop="12dp"
+                android:layout_width="363dp"
+                android:layout_height="45dp"
+                android:layout_marginTop="8dp"
                 android:fontFamily="@font/poppins_semibold"
                 android:gravity="center|center_vertical"
                 android:text="Иванов Иван Иванович "
@@ -91,13 +92,12 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/AvatarImageView" />
 
-
             <TextView
                 android:id="@+id/textView2"
                 android:layout_width="126dp"
                 android:layout_height="40dp"
                 android:layout_marginStart="56dp"
-                android:layout_marginTop="28dp"
+                android:layout_marginTop="12dp"
                 android:fontFamily="@font/poppins_semibold"
                 android:gravity="center|start"
                 android:text="Друзья:"
@@ -111,8 +111,8 @@
                 android:id="@+id/friendCaount"
                 android:layout_width="90dp"
                 android:layout_height="44dp"
-                android:layout_marginTop="24dp"
-                android:layout_marginEnd="24dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="48dp"
                 android:backgroundTint="@color/black"
                 android:fontFamily="@font/poppins_semibold"
                 android:text="14"
@@ -127,7 +127,7 @@
                 android:layout_width="90dp"
                 android:layout_height="44dp"
                 android:layout_marginTop="20dp"
-                android:layout_marginEnd="24dp"
+                android:layout_marginEnd="48dp"
                 android:backgroundTint="@color/black"
                 android:fontFamily="@font/poppins_semibold"
 
@@ -142,17 +142,17 @@
                 android:id="@+id/CityTextView"
                 android:layout_width="171dp"
                 android:layout_height="31dp"
-                android:layout_marginTop="28dp"
+                android:layout_marginTop="4dp"
                 android:fontFamily="@font/poppins_semibold"
                 android:gravity="center"
                 android:text="Город"
                 android:textColor="#FFFFFF"
                 android:textSize="20dp"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.493"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/FiotextView" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
-    </HorizontalScrollView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

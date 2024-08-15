@@ -3,6 +3,7 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/lkConstraintLAyout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#14161B"
@@ -40,46 +41,62 @@
                     android:scrollbars="none"
                     app:layout_constraintTop_toBottomOf="@+id/BalansRecyclerView">
 
-                    <LinearLayout
+                    <androidx.constraintlayout.widget.ConstraintLayout
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:orientation="horizontal"
-
                         >
 
                         <ImageButton
-                            android:id="@+id/imageButton6"
+                            android:id="@+id/lkText1imageButton"
                             android:layout_width="150dp"
                             android:layout_height="150dp"
                             android:padding="40dp"
-                            android:src="@android:drawable/btn_star" />
+                            android:scaleType="center"
+                            android:src="@drawable/lktext1"
+                            android:clickable="true"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
 
                         <ImageButton
-                            android:id="@+id/imageButton7"
+                            android:id="@+id/lkText3mageButton"
                             android:layout_width="150dp"
                             android:layout_height="150dp"
+                            android:layout_marginStart="10dp"
                             android:layout_weight="1"
                             android:padding="40dp"
-                            android:src="@android:drawable/btn_star" />
+                            android:clickable="true"
+                            android:src="@drawable/lktext3"
+                            app:layout_constraintStart_toEndOf="@+id/lkText2imageButton"
+                            app:layout_constraintTop_toTopOf="parent" />
 
                         <ImageButton
-                            android:id="@+id/imageButton8"
+                            android:id="@+id/lkText2imageButton"
                             android:layout_width="150dp"
                             android:layout_height="150dp"
+                            android:layout_marginStart="10dp"
                             android:padding="40dp"
-                            android:src="@android:drawable/btn_star" />
-                    </LinearLayout>
+                            android:clickable="true"
+
+                            android:src="@drawable/lktext2"
+                            app:layout_constraintStart_toEndOf="@+id/lkText1imageButton"
+                            app:layout_constraintTop_toTopOf="parent" />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
                 </HorizontalScrollView>
 
-                <ImageView
+                <com.makeramen.roundedimageview.RoundedImageView
                     android:id="@+id/AvatarImageView"
                     android:layout_width="173dp"
                     android:layout_height="132dp"
                     android:layout_marginTop="28dp"
-
+                    android:scaleType="centerCrop"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:riv_border_color="@color/seriy"
+                    app:riv_border_width="2dip"
+                    app:riv_corner_radius="60dp" />
 
                 <TextView
                     android:id="@+id/FiotextView"
@@ -175,6 +192,19 @@
                     android:scaleType="fitCenter"
                     android:src="@drawable/exit"
                     app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <ImageButton
+
+                    android:id="@+id/sitingsImageButton"
+                    android:layout_width="76dp"
+                    android:layout_height="62dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="4dp"
+                    android:backgroundTint="#14161B"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/exit"
+                    app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>

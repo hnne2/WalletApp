@@ -48,10 +48,10 @@ public class SplashActivity extends AppCompatActivity {
         }
 
         splashActivityViewModel.getUserInfoSucsess().observe(this, person -> {
+          person = foundSms.updateCapital(person,getContentResolver());
             Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-            foundSms.updateCapital(person,getContentResolver());
             intent.putExtra("person",person);
-            Log.e("my","Положил балансы");
+            Log.e("TAG","Положил балансы"+person.getIsOpen_acc());
             splashActivityViewModel.updatePerson(person);
             startActivity(intent);
             finish();
@@ -63,6 +63,7 @@ public class SplashActivity extends AppCompatActivity {
         if (msheredPrefsRepository.getLogPasEncode("logPassEncode").equals("empty"))  // проверка на авторизацию
         {
             startActivity(new Intent(this, avtarization.class));
+            finish();
         }
         else {
             splashActivityViewModel.getUserInfo();

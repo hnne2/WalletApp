@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 
 import androidx.annotation.NonNull;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
@@ -53,22 +54,21 @@ public class rankingsFragment extends Fragment {
         binding = FragmentRankingsBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
         swipeRefreshLayout = root.findViewById(R.id.swipeRefreshLayoutRankingsFragment);
-        swipeRefreshLayout.setRefreshing(true);
+        binding.progressBarFragmentRangings.setVisibility(View.VISIBLE);
         swipeRefreshLayout.setOnRefreshListener(()-> rankingsViewModel.getRangingsCity(person.getCity()));
         List<RankingRegion> rankingRegionslist = new ArrayList<>();
         rankingRegionslist.add(new RankingRegion("Город", R.drawable.ic_home_black_24dp));
         rankingRegionslist.add(new RankingRegion("Страна", R.drawable.ic_home_black_24dp));
         rankingRegionslist.add(new RankingRegion("Город", R.drawable.ic_home_black_24dp));
         rankingRegionslist.add(new RankingRegion("Мир", R.drawable.ic_home_black_24dp));
-
         binding.searchImageButton.setOnClickListener(v -> {
-            fragmentTransaction = fragmentManager.beginTransaction();
-            fragmentTransaction.replace(R.id.fragmentRangingsConstraintLayout,new searchFragment());
-           binding.RangingsRecyclerView.setVisibility(View.INVISIBLE);
-           binding.spinnerRegion.setVisibility(View.INVISIBLE);
-           binding.textView5.setVisibility(View.INVISIBLE);
-           binding.searchImageButton.setVisibility(View.INVISIBLE);
-            fragmentTransaction.commit();
+          fragmentTransaction = fragmentManager.beginTransaction();
+          fragmentTransaction.replace(R.id.fragmentRangingsConstraintLayout,new searchFragment());
+          binding.RangingsRecyclerView.setVisibility(View.INVISIBLE);
+          binding.spinnerRegion.setVisibility(View.INVISIBLE);
+          binding.textView5.setVisibility(View.INVISIBLE);
+          binding.searchImageButton.setVisibility(View.INVISIBLE);
+          fragmentTransaction.commit();
         });
         binding.spinnerRegion.setAdapter(new RegionAdapter(getContext(),rankingRegionslist));
         binding.spinnerRegion.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener()
@@ -77,15 +77,18 @@ public class rankingsFragment extends Fragment {
             {
                 if(position==1)
                 {
+                    binding.progressBarFragmentRangings.setVisibility(View.VISIBLE);
                     rankingsViewModel.getRangingsCountry(person.getCountry());
                 }
                 if(position==2)
                 {
+                    binding.progressBarFragmentRangings.setVisibility(View.VISIBLE);
                     rankingsViewModel.getRangingsCity(person.getCity());
                 }
             }
             public void onNothingSelected(AdapterView<?> parent) {}
         });
+
         List<FrendsItem> frendsItems = new ArrayList<>();
         FrendsRecyclerViewAdapter.OnFrendsClickListener rankingsClickListener = (frend, position) -> {
             PersonDialogFragment personDialogFragment = PersonDialogFragment.newInstance(frend.getUsername());
@@ -95,9 +98,7 @@ public class rankingsFragment extends Fragment {
             fragmentTransaction.commit();
         };
        rankingsViewModel.getMytableRangingsCityList().observe(getViewLifecycleOwner(), people -> {
-//           if (frendsItems.get(0).equals(people.get(0))){
-//               Log.d("TAG", "equals: true");
-//           }else  Log.d("TAG", "equals: false");
+           binding.progressBarFragmentRangings.setVisibility(View.INVISIBLE);
            frendsItems.clear();
            for (int i = 0; i < people.size(); i++) {
                frendsItems.add(new FrendsItem(people.get(i).getAvatarlink(),people.get(i).userfio,people.get(i).getUsername(),String.valueOf(i+1),String.valueOf(people.get(i).getCapital())));
@@ -107,16 +108,14 @@ public class rankingsFragment extends Fragment {
            binding.RangingsRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
            swipeRefreshLayout.setRefreshing(false);
        });
-       rankingsViewModel.getMytableRangingsCountryList().observe(getViewLifecycleOwner(), new Observer<List<Person>>() {
-           @Override
-           public void onChanged(List<Person> people) {
-               frendsItems.clear();
-               for (int i = 0; i < people.size(); i++) {
-                   frendsItems.add(new FrendsItem(people.get(i).getAvatarlink(),people.get(i).userfio,people.get(i).getUsername(),String.valueOf(i+1),String.valueOf(people.get(i).getCapital())));
-               }
-               binding.RangingsRecyclerView.setAdapter(new FrendsRecyclerViewAdapter(getContext(),frendsItems,rankingsClickListener));
-               binding.RangingsRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+       rankingsViewModel.getMytableRangingsCountryList().observe(getViewLifecycleOwner(), people -> {
+           binding.progressBarFragmentRangings.setVisibility(View.INVISIBLE);
+           frendsItems.clear();
+           for (int i = 0; i < people.size(); i++) {
+               frendsItems.add(new FrendsItem(people.get(i).getAvatarlink(),people.get(i).userfio,people.get(i).getUsername(),String.valueOf(i+1),String.valueOf(people.get(i).getCapital())));
            }
+           binding.RangingsRecyclerView.setAdapter(new FrendsRecyclerViewAdapter(getContext(),frendsItems,rankingsClickListener));
+           binding.RangingsRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
        });
         rankingsViewModel.getRangingsCity(person.getCity());
         return root;

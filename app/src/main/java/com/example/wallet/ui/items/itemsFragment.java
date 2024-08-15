@@ -60,30 +60,23 @@ public class itemsFragment extends Fragment {
                 itemsViewModel.getItems();
             }
         });
-
         ItemsRecyclerViewAdapter.onItemClickListener itemClickListener = (itemsItem, position) -> {
-            ConstraintLayout fr = view.findViewById(R.id.ConstraintLayoutItemsFragments);
             ItemTextFragment itemTextFragment = ItemTextFragment.newInstance(itemsItem.description);
             fragmentManager = getChildFragmentManager();
             fragmentTransaction=fragmentManager.beginTransaction();
             fragmentTransaction.add(R.id.ConstraintLayoutItemsFragments, itemTextFragment);
             fragmentTransaction.addToBackStack(null);
             fragmentTransaction.commit();
-
         };
-
         itemsRecyclerView=view.findViewById(R.id.recyclerViewItemsFragment);
         itemsRecyclerView.setVisibility(View.VISIBLE);
-        itemsViewModel.getMutableItemsResult().observe(getViewLifecycleOwner(), new Observer<List<ItemsItem>>() {
-            @Override
-            public void onChanged(List<ItemsItem> itemsItems) {
-                if (itemsItems.size()!=itemList.size()){
-                    itemList=itemsItems;
-                    itemsRecyclerView.setAdapter(new ItemsRecyclerViewAdapter(person.getId(),itemsViewModel,getContext(),itemList,itemClickListener));
-                    itemsRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-                }
-                swipeRefreshLayout.setRefreshing(false);
+        itemsViewModel.getMutableItemsResult().observe(getViewLifecycleOwner(), itemsItems -> {
+            if (itemsItems.size()!=itemList.size()){
+                itemList=itemsItems;
+                itemsRecyclerView.setAdapter(new ItemsRecyclerViewAdapter(person.getId(),itemsViewModel,getContext(),itemList,itemClickListener));
+                itemsRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
             }
+            swipeRefreshLayout.setRefreshing(false);
         });
         Log.d("TAG", "onCreateView: "+itemList.size());
 

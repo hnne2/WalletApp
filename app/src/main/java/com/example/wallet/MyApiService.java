@@ -1,5 +1,6 @@
 package com.example.wallet;
 
+import com.example.wallet.models.AddFriendResponseBody;
 import com.example.wallet.models.Person;
 import com.example.wallet.ui.home.LoginBody;
 import com.example.wallet.ui.items.ItemsItem;
@@ -34,6 +35,8 @@ public interface MyApiService {
 
     @GET("friendsById/{idString}")
     Call<List<Person>> getFrindsList(@Path("idString") String idString);
+    @GET("RequstfriendsListById/{idString}")
+    Call<List<Person>> getRequstFrindsList(@Path("idString") String idString);
     @POST("update")
     Call<ResponseBody> updatePerson(@Body Person person);
     @GET("findPerson/{chars}")
@@ -45,5 +48,10 @@ public interface MyApiService {
     Call<List<ItemsItem>> getItems();
     @POST("LoadItems")
     Call<ResponseBody> updateItem(@Body ItemsItem item);
+    @POST("addTofriend")
+    Call<ResponseBody> addTofriend(@Body AddFriendResponseBody AddFriendResponseBody);
+    @POST("addTofriendrequests")
+    Call<ResponseBody> addTofriendrequests(@Body AddFriendResponseBody AddFriendResponseBody);
+    
 
 }

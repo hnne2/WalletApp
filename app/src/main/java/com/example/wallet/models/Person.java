@@ -23,6 +23,9 @@ public class Person implements Parcelable {
     private String balansinotkritie;
     private int placeincity;
     private int placeincountry;
+    private String friendrequest;
+    private int isOpenAcc;
+
 
 
 
@@ -125,6 +128,22 @@ public class Person implements Parcelable {
         this.balansintinkoff = balansintinkoff;
     }
 
+    public String getFriendrequest() {
+        return friendrequest;
+    }
+
+    public void setFriendrequest(String friendrequest) {
+        this.friendrequest = friendrequest;
+    }
+
+    public int getIsOpen_acc() {
+        return isOpenAcc;
+    }
+
+    public void setIs_open_acc(int is_open_acc) {
+        this.isOpenAcc = is_open_acc;
+    }
+
     public String getBalansinvtb() {
         return balansinvtb;
     }
@@ -203,6 +222,8 @@ public class Person implements Parcelable {
         dest.writeInt(place);
         dest.writeInt(placeincity);
         dest.writeInt(placeincountry);
+        dest.writeString(friendrequest);
+        dest.writeInt(isOpenAcc);
     }
     protected Person(Parcel in) {
         id = in.readInt();
@@ -222,6 +243,8 @@ public class Person implements Parcelable {
         place = in.readInt();
         placeincity = in.readInt();
         placeincountry = in.readInt();
+        friendrequest=in.readString();
+        isOpenAcc = in.readInt();
     }
     @Override
     public int describeContents() {

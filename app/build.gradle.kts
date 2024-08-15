@@ -47,6 +47,7 @@ dependencies {
     implementation("androidx.navigation:navigation-ui:2.7.7")
     implementation("androidx.core:core:1.13.1")
     implementation("com.google.firebase:firebase-storage:21.0.0")
+    implementation("androidx.preference:preference:1.2.0")
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
@@ -62,6 +63,7 @@ dependencies {
     implementation("androidx.core:core-splashscreen:1.0.0")
     implementation ("com.github.bumptech.glide:glide:4.12.0")
     implementation ("com.firebaseui:firebase-ui-storage:8.0.0")
+    implementation ("com.makeramen:roundedimageview:2.3.0")
     annotationProcessor ("com.github.bumptech.glide:compiler:4.12.0")
 
 

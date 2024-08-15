@@ -6,13 +6,13 @@
     android:layout_height="match_parent"
     >
 
+
     <EditText
         android:id="@+id/NIckNamelEditText"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_marginStart="10dp"
-        android:layout_marginTop="60dp"
-
+        android:layout_marginTop="76dp"
         android:layout_marginEnd="10dp"
         android:background="@drawable/login_shape"
         android:drawableStart="@drawable/chelovechekxml"
@@ -25,10 +25,11 @@
         android:inputType="textEmailAddress"
         android:maxLines="1"
         android:textColor="#C4C4C4"
+        android:textColorHint="@color/seriy"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-
 
     <EditText
         android:id="@+id/UserFioEditText"
@@ -44,6 +45,7 @@
         android:drawableTint="#19C179"
         android:fontFamily="@font/poppins_semibold"
         android:hint="Имя"
+        android:textColorHint="@color/seriy"
         android:inputType="textEmailAddress"
         android:maxLines="1"
         android:textColor="#C4C4C4"
@@ -53,12 +55,12 @@
 
 
     <AutoCompleteTextView
-        android:id="@+id/CityAutoCompleteTextView"
+        android:id="@+id/CityAutoCompleteTextViewFragmentREg"
+        style="@style/CustomAutoCompleteDropdown"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_marginStart="10dp"
-        android:layout_marginTop="36dp"
-
+        android:layout_marginTop="248dp"
         android:layout_marginEnd="10dp"
         android:background="@drawable/login_shape"
         android:drawableStart="@drawable/chelovechekxml"
@@ -69,17 +71,18 @@
         android:inputType="textEmailAddress"
         android:maxLines="1"
         android:textColor="#C4C4C4"
+        android:textColorHint="@color/seriy"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/UserFioEditText" />
-
+        app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
         android:id="@+id/passwordEditTextRegFrag"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_marginStart="10dp"
-        android:layout_marginTop="36dp"
+        android:layout_marginTop="116dp"
         android:layout_marginEnd="10dp"
         android:background="@drawable/login_shape"
         android:drawableStart="@drawable/chelovechekxml"
@@ -87,13 +90,15 @@
         android:drawableTint="#19C179"
         android:fontFamily="@font/poppins_semibold"
         android:hint="Пароль"
-        android:inputType="textEmailAddress"
+        android:inputType="textPassword"
         android:maxLines="1"
+
         android:textColor="#C4C4C4"
+        android:textColorHint="@color/seriy"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/CityAutoCompleteTextView" />
+        app:layout_constraintTop_toBottomOf="@+id/UserFioEditText" />
 
     <EditText
         android:id="@+id/confirmPasswordEditTextRegFrag"
@@ -102,13 +107,14 @@
         android:layout_marginStart="10dp"
         android:layout_marginTop="20dp"
         android:layout_marginEnd="10dp"
+        android:textColorHint="@color/seriy"
         android:background="@drawable/login_shape"
         android:drawableStart="@drawable/chelovechekxml"
         android:drawablePadding="20dp"
         android:drawableTint="#19C179"
         android:fontFamily="@font/poppins_semibold"
         android:hint="Подтвердите пароль"
-        android:inputType="textEmailAddress"
+        android:inputType="textPassword"
         android:maxLines="1"
         android:textColor="#C4C4C4"
         app:layout_constraintEnd_toEndOf="parent"
@@ -121,10 +127,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="96dp"
-        android:background="@drawable/button_rounded"
+        android:background="@drawable/zakrugl"
         android:fontFamily="@font/poppins_semibold"
-        android:text="Регистрация"
-
+        android:text="confirm"
         android:textAllCaps="false"
         android:textColor="#FEFEFF"
         android:textSize="20dp"
@@ -135,11 +140,11 @@
         android:id="@+id/backLogin"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="28dp"
-        android:background="@drawable/button_rounded"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/zakrugl"
         android:fontFamily="@font/poppins_semibold"
 
-        android:text="Вернуться"
+        android:text="back"
         android:textAllCaps="false"
         android:textColor="#FEFEFF"
         android:textSize="20dp"
@@ -154,10 +159,9 @@
         android:layout_alignParentTop="true"
         android:layout_marginTop="16dp"
         android:fontFamily="@font/poppins_semibold"
-        android:text=" Регистрация"
-        android:textColor="#3B3B3B"
+        android:text="Registarion"
+        android:textColor="@color/white"
         android:textSize="24dp"
-        android:textStyle="italic"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
