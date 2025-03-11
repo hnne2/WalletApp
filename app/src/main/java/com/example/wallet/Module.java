@@ -24,7 +24,6 @@ public class Module {
         return new OkHttpClient.Builder()
                 .addInterceptor(chain -> {
                     Request originalRequest = chain.request();
-
                     // Добавляем заголовок "Authorization" к каждому запросу
                     Request authorizedRequest = originalRequest.newBuilder()
                             .header("Authorization", sheredPrefsRepository.getLogPasEncode("logPassEncode"))
